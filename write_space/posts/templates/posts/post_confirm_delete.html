@@ -1,0 +1,17 @@
+{% extends "header_footer.html" %}
+{%load staticfiles%}
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+
+<form method="post">
+  {%csrf_token%}
+  <p>Are you sure you want to delete {{ object }}?</p>
+  <button type="submit" class="btn btn-danger">Confirm</button>
+</form>
+<br>
+<br>
+
+{% endblock %}

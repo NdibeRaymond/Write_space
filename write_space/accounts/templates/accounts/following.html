@@ -1,0 +1,53 @@
+{%extends "header_footer.html" %}
+
+
+{%block content%}
+<br>
+<br>
+<br>
+<br>
+
+
+<div class="container">
+  <div class="row">
+
+
+{%for each_person in people_you_follow%}
+
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 text-center">
+      <div class="" style="background:white; padding:10px">
+        {%if each_person.profile_pic%}
+       <img src="{{each_person.profile_pic.url}}" class="img-responsive" style="height:50px;width:50px;border-radius:50%" alt="">
+       {%endif%}
+       <br>
+       <a href="{%url 'accounts:user_profile' username=each_person.user.username pk=each_person.pk %}"><h5 class="name no_underline">{{each_person.user.username}}</h5></a>
+       {%if not request.user.userprofile == each_person%}
+       {%if not request.user.userprofile in each_person.follower.all %}
+       <a href="{%url 'accounts:follow' username=each_person.user.username pk=each_person.pk %}">
+       <button type="button"  class="btn btn-primary"><span class="">Follow</span>
+       </button>
+       </a>
+       {%else%}
+       <a href="{%url 'accounts:unfollow' username=each_person.user.username pk=each_person.pk %}">
+       <button type="button" class="btn btn-primary"><span class="">Unfollow</span>
+       </button>
+       </a>
+       {%endif%}
+       {%endif%}
+
+       <br>
+      </div>
+
+    </div>
+    {%endfor%}
+    <br>
+
+
+  </div>
+</div>
+<br>
+<br>
+
+
+
+{%endblock%}

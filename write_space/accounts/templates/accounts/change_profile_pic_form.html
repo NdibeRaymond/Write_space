@@ -1,0 +1,28 @@
+{% extends "header_footer.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+
+<div class="container" style="height:100vh;">
+  <form enctype="multipart/form-data" method="post">
+    {%csrf_token%}
+
+    {{ form }}
+    <hr>
+    
+
+    <button type="submit" name="button" class="btn btn-primary">Done</button>
+    <a href="{% url 'accounts:user_profile' username=request.user.username pk=request.user.pk %}"><input type="button" name="" value="Cancel" class="btn btn-primary"></a>
+  </form>
+
+</div>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock %}

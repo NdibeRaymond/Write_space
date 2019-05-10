@@ -1,0 +1,28 @@
+{% extends "header_footer.html" %}
+{%load staticfiles%}
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+  <h1>New Post</h1>
+  <form class="post_form" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+      {%csrf_token%}
+      {{form.as_p}}
+    </div>
+
+    <button type="submit" class="save btn btn-success">Save</button>
+    <br>
+    <br>
+    
+  </form>
+  <script>
+    var editor=new MediumEditor('.editable');
+  </script>
+
+</div>
+
+
+{% endblock %}

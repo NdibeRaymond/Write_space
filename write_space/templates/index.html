@@ -1,0 +1,378 @@
+{% extends "header_footer.html" %}
+{% load staticfiles %}
+
+{% block content%}
+
+<div class="contentDiv">
+      <div class="jumbotron" id = "first_jumbo">
+    <img src="{% static 'write_space/images/633.svg' %}" alt="" height="100%" width="100%" style="padding:0px">
+
+        <div class="container text-center v-center" style="z-index:1;position:absolute">
+          <h1 class="display-2" style="font-weight:bolder;color:white;background-color:rgba(61, 120, 218,0.5);border-radius:50px;margin:auto">Writing Should Be Easy</h1>
+        </div>
+          <a href="#lead"><img class="arrow" src="{% static 'write_space/images/angle-arrow-down(4).png' %}" /></a>
+
+      </div>
+    </div>
+        <div id="myCarousel" class="carousel slide" data-interval="10000" data-ride="carousel" style="margin-top:0px;">
+      <h2 id="explore_all" style = "text-align:center;background: #14b6ad;color:white;padding:10px;font-family:monospace;margin:0px;">Explore Featured Posts</h2>
+      <br>
+      <br>
+      <br>
+      <br>
+      <!-- Indicators -->
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner">
+          <div class="item active">
+            <div class="container">
+              <div class="jumbotron shard" id = "">
+                <div class="row">
+
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+
+                        <div>
+
+                          <img class = " img-responsive" src="{%static 'write_space/images/Capture7 copy.png' %}" style="width:200px;height:200px;border-radius: 50px">
+                        </div>
+                        <h4 class="text-center">authors name</h4>
+                      </div>
+
+
+                      <div class="col-lg-9 col-md-9 col-sm-9">
+                        <div class="text-center"><h4>Post title</h4></div>
+                       <p class="text-center">truncated post text</p>
+                       <div class="text-center">
+                       	<button type="button" name="button"><span class="">Likes</span></button>
+                      <button type="button" name="button"><span class="">Comments</span></button>
+                       </div>
+
+                  </div>
+                  <a href="https://write_space.com"><span style="position:absolute;width:100%;height: 100%;top:0;left:0;z-index: 1;background-image: url(project_images/Transparent.gif/);"></span></a>
+                </div>
+              </div>
+
+        </div>
+        </div>
+
+
+        <div class="item">
+          <div class="container">
+            <a href="enter_polls.html">
+            <div class="jumbotron shard" id = "second_vote">
+              <div class="row">
+                  <div>
+                    <h4>Gerforce GTX 1080 TI for the gamers!</h4>
+
+                  <div class="poll_card__author"><span>– </span>by
+                    <a class="user__name" href="/profile/FuzzFrrek/polls"><strong>FuzzFrrek</strong></a>
+                  </div>
+
+                  </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+
+                            <div>
+
+                                      <img class = " img-responsive" alt="Gerforce GTX 1080 TI for the gamers" <img alt="Gerforce GTX 1080 TI for the gamers!" src="https://massdrop-s3.imgix.net/img_poll/9w5ywnI9T0yLrQZSR6mj_md_img.jpg?auto=format&amp;fm=jpg&amp;fit=crop&amp;w=235&amp;h=235&amp;dpr=1" srcset="https://massdrop-s3.imgix.net/img_poll/9w5ywnI9T0yLrQZSR6mj_md_img.jpg?auto=format&amp;fm=jpg&amp;fit=crop&amp;w=235&amp;h=235&amp;dpr=1 1x, https://massdrop-s3.imgix.net/img_poll/9w5ywnI9T0yLrQZSR6mj_md_img.jpg?auto=format&amp;fm=jpg&amp;fit=crop&amp;w=235&amp;h=235&amp;dpr=2 2x, https://massdrop-s3.imgix.net/img_poll/9w5ywnI9T0yLrQZSR6mj_md_img.jpg?auto=format&amp;fm=jpg&amp;fit=crop&amp;w=235&amp;h=235&amp;dpr=3 3x" class="responsive poll_card__img">
+
+                                    <div ></div>
+                                    <div>
+                                    </div>
+                            </div>
+                          </div>
+
+
+                    <div class="col-lg-9 col-md-9 col-sm-9">
+                      <div class="poll_card__options_heading"><h4>Options</h4></div>
+                      <div class="poll_card__votes">
+
+
+                          <div class="first">
+                            <div>
+                            <div class="poll_card__product_name"><strong class="poll_card__option_position">1st</strong><h5 class="poll_card__vote_count"><strong class="poll_card__vote_count_number_first">2223</strong> votes</h5></div>
+                            </div>
+                            <div class="poll_card__product_name">EVGA GeForce GTX 1080 Ti FTW3 GAMING, 11GB GDDR5X, iCX Technology - 9 Thermal Se</div>
+                            <div class="wd_spacerSize--5 d_spacerSize--5 wt_spacerSize--5 nt_spacerSize--5 p_spacerSize--5"></div>
+                            <div class="progress" style="height: 10px;">
+                              <div class="progress-bar progress-bar-success first" id = "second_vote" role="progressbar" style="" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                          </div>
+
+
+                          <div class="second">
+                            <div class="poll_card__product_name"><strong class="poll_card__option_position">2nd</strong><h5 class="poll_card__vote_count"><strong class="poll_card__vote_count_number_second">815</strong> votes</h5></div>
+                            <div class="poll_card__product_name">ASUS ROG-STRIX-GTX1080TI-O11G-GAMING GeForce 11GB OC Edition VR Ready 5K HD Gami</div>
+                            <div class="progress" style="height: 10px;">
+                              <div class="progress-bar progress-bar-success second" id = "second_vote" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                          </div>
+
+
+                          <div class="third">
+                            <div>
+                            <div class="poll_card__product_name"><strong class="poll_card__option_position">3rd</strong><h5 class="poll_card__vote_count"><strong class="poll_card__vote_count_number_third">539</strong> votes</h5></div>
+                            </div>
+                            <div class="poll_card__product_name">MSI GTX 1080 TI DUKE 11G OC Graphic Cards: Amazon.ca: Computers & Tablets</div>
+                            <div class="wd_spacerSize--5 d_spacerSize--5 wt_spacerSize--5 nt_spacerSize--5 p_spacerSize--5"></div>
+                            <div class="progress" style="height: 10px;">
+                              <div class="progress-bar progress-bar-success third" id = "second_vote" role="progressbar" style="" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                          </div>
+
+                    <button type="button" name="button"><span class="poll_card__more_options_button button button--large link_button--primary">+1 Other Option</span></button>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            </a>
+      </div>
+      </div>
+
+
+
+
+      <div class="item">
+        <div class="container">
+          <a href="enter_polls.html">
+          <div class="jumbotron shard" id = "third_vote">
+            <div class="row">
+                <div>
+                  <h4>The Last Watch You'll Ever Own</h4>
+
+                <div class="poll_card__author"><span>– </span>by
+                  <a class="user__name" href="/profile/Nerdtality/polls"><strong>a community member</strong></a>
+                </div>
+
+                </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+
+                          <div>
+
+                                    <img alt="The Last Watch You'll Ever Own" src="https://massdrop-s3.imgix.net/img_poll/mNbIFKwCQxPYRj3mi0aw_md_img.jpg?auto=format&amp;fm=jpg&amp;fit=crop&amp;w=235&amp;h=235&amp;dpr=1" srcset="https://massdrop-s3.imgix.net/img_poll/mNbIFKwCQxPYRj3mi0aw_md_img.jpg?auto=format&amp;fm=jpg&amp;fit=crop&amp;w=235&amp;h=235&amp;dpr=1 1x, https://massdrop-s3.imgix.net/img_poll/mNbIFKwCQxPYRj3mi0aw_md_img.jpg?auto=format&amp;fm=jpg&amp;fit=crop&amp;w=235&amp;h=235&amp;dpr=2 2x, https://massdrop-s3.imgix.net/img_poll/mNbIFKwCQxPYRj3mi0aw_md_img.jpg?auto=format&amp;fm=jpg&amp;fit=crop&amp;w=235&amp;h=235&amp;dpr=3 3x" class="responsive poll_card__img">
+                                  <div ></div>
+                                  <div>
+                                  </div>
+                          </div>
+                        </div>
+
+
+                  <div class="col-lg-9 col-md-9 col-sm-9">
+                    <div class="poll_card__options_heading"><h4>Options</h4></div>
+                    <div class="poll_card__votes">
+
+
+                        <div class="first">
+                          <div>
+                          <div class="poll_card__product_name"><strong class="poll_card__option_position">1st</strong><h5 class="poll_card__vote_count"><strong class="poll_card__vote_count_number_first">1095</strong> votes</h5></div>
+                          </div>
+                          <div class="poll_card__product_name">Rolex Submariner Date Watch: Oystersteel - 116610LN</div>
+                          <div class="wd_spacerSize--5 d_spacerSize--5 wt_spacerSize--5 nt_spacerSize--5 p_spacerSize--5"></div>
+                          <div class="progress" style="height: 10px;">
+                            <div class="progress-bar progress-bar-success first" id = "third_vote" role="progressbar" style="width:" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </div>
+
+
+                        <div class="second">
+                          <div>
+                          <div class="poll_card__product_name"><strong class="poll_card__option_position">2nd</strong><h5 class="poll_card__vote_count"><strong class="poll_card__vote_count_number_second">823</strong> votes</h5></div>
+                          </div>
+                          <div class="poll_card__product_name">Omega Speedmaster Moonwatch Professional Chronograph 42 mm - 311.30.42.30.01.006</div>
+                          <div class="wd_spacerSize--5 d_spacerSize--5 wt_spacerSize--5 nt_spacerSize--5 p_spacerSize--5"></div>
+                          <div class="progress" style="height: 10px;">
+                            <div class="progress-bar progress-bar-success second" id = "third_vote"  role="progressbar" style="width:" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </div>
+
+
+                        <div class="third">
+                          <div>
+                          <div class="poll_card__product_name"><strong class="poll_card__option_position">3rd</strong><h5 class="poll_card__vote_count"><strong class="poll_card__vote_count_number_third">406</strong> votes</h5></div>
+                          </div>
+                          <div class="poll_card__product_name">Rolex GMT-Master II Watch: 18 ct white gold – 116719BLRO</div>
+                          <div class="wd_spacerSize--5 d_spacerSize--5 wt_spacerSize--5 nt_spacerSize--5 p_spacerSize--5"></div>
+                          <div class="progress" style="height: 10px;">
+                            <div class="progress-bar progress-bar-success third" id = "third_vote" role="progressbar" style="width:" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </div>
+
+                  <button type="button" name="button"><span class="poll_card__more_options_button button button--large link_button--primary">+1 Other Option</span></button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          </a>
+    </div>
+    </div>
+
+      </div>
+
+      <!-- Left and right controls -->
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+
+<div class="text-center" id="lead" style="background-image: url({% static 'write_space/images/helena-lopes-463976-unsplash.jpg'%});height:70vh;background-attachment:fixed;background-position:Center;background-repeat:non-repeat;background-size:cover;">
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <div class="container"  style="background-color:rgba(255,255,255,0.3)">
+    <p class="lead">We give people the power to <span class="" style="font-size:1.5em;"><strong>connect</strong></span> and <span class="" style="font-size:1.5em;"><strong>share</strong></span> there Thoughts and feelings
+      <br>
+      <br>
+      Engage in <span class="" style="font-size:1.5em;"><strong>deep conversations</strong></span>
+       <br>
+       <br>
+       <span class="" style="font-size:1.5em;"><strong>make new friends</strong></span> and <span class=""><strong style="font-size:1.5em;">have fun</strong></span> doing so</p>
+
+  </div>
+  <br>
+
+
+  <a href="#how_it_works" class="no_underline"><button class="btn btn-primary">Click here to learn more</button></a>
+
+
+  <br>
+  <br>
+
+
+</div>
+
+
+
+<div class="container">
+	<h2 id="explore_all" style = "text-align:center;background: #14b6ad;color:white;padding:10px;font-family:monospace;margin:0px;">More Posts</h2>
+                <div class="row display-flex">
+                  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="card help_center" >
+                      <img src="{%static 'write_space/images/id-card (2).png'%}" class="img-responsive" alt="">
+                      <h4><strong>New Members</strong></h4>
+                      <p><h5 style="color:gray;">New to our platform? learn about who we are and what we do</h5></p>
+                    </div>
+                  </div>
+                  <br>
+                  <br>
+
+                  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="card help_center" >
+                      <img src="{%static 'write_space/images/vote.png'%}" class="img-responsive" alt="">
+                      <h4><strong>Votes</strong></h4>
+                      <p><h5 style="color:gray;">Learn all you need to know about our product voting system</h5></p>
+                    </div>
+                  </div>
+                  <br>
+                  <br>
+
+                  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="card help_center" >
+                      <img src="{%static 'write_space/images/sell-product.png'%}" class="img-responsive" alt="">
+                      <h4><strong>Flash deals</strong></h4>
+                      <p><h5 style="color:gray;">Understand how our flashdeals work</h5></p>
+                    </div>
+                  </div>
+                  <br>
+                  <br>
+
+                  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="card help_center" >
+                      <img src="{%static 'write_space/images/respect.png'%}" class="img-responsive" alt="">
+                      <h4><strong>Partnerships and Collaborations</strong></h4>
+                      <p><h5 style="color:gray;">All you need to know about partnering and selling your products on our platform</h5></p>
+                    </div>
+                  </div>
+                  <br>
+                  <br>
+
+                  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="card help_center" >
+                      <img src="{%static 'write_space/images/online-order.png'%}" class="img-responsive" alt="">
+                      <h4><strong>Your Orders</strong></h4>
+                      <p><h5 style="color:gray;">How to track your packages and more</h5></p>
+                    </div>
+                  </div>
+                  <br>
+                  <br>
+
+                  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="card help_center" >
+                      <img src="{%static 'write_space/images/cash (2).png'%}" class="img-responsive" alt="">
+                      <h4><strong>Payments</strong></h4>
+                      <p><h5 style="color:gray;">learn about the payments options available to you</h5></p>
+                    </div>
+                  </div>
+                  <br>
+                  <br>
+
+                  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="card help_center" >
+                      <img src="{%static 'write_space/images/technical-support.png'%}" class="img-responsive" alt="">
+                      <h4><strong>Account settings</strong></h4>
+                      <p><h5 style="color:gray;">How to manage and control your account</h5></p>
+                    </div>
+                  </div>
+                   <br>
+                   <br>
+                </div>
+              </div>
+
+
+
+
+
+    <div class="text-center" style="background-image: url({% static 'write_space/images/duy-pham-704498-unsplash.jpg' %});height:50vh;background-attachment:fixed;background-position:Center;background-repeat:non-repeat;background-size:cover;">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+      <div class="" style="background-color: rgba(255,255,255,0.3);">
+        <h3>With WriteSpace,</h3>
+        <h3>Writing is as  <span style="font-size:1.5em;"><strong>EASY </strong></span>as it can be</h3>
+      </div>
+
+    </div>
+
+
+    <div class="jumbotron" style="padding:20px;" id="how_it_works">
+      <h2 class="page-header" style = "text-align:center;"><strong>How it works</strong></h2>
+      <br>
+      <br>
+
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-6" style="height:230px;">
+            <img src="project_images/vote (1).png" class="img-responsive" alt="">
+            <h3 style = "text-align:center;"><strong>Signup</strong></h3>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6" style="height:230px;">
+            <img src="project_images/megaphone.png" class="img-responsive" alt="">
+            <h3 style = "text-align:center;"><strong>Choose your interests</strong></h3>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6" style="height:230px;">
+            <img src="project_images/cash.png" class="img-responsive" alt="">
+            <h3 style = "text-align:center;"><strong>Explore posts your might be interested in</strong></h3>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6" style="height:230px;">
+            <img src="project_images/delivery-truck.png" class="img-responsive" alt="">
+            <h3 style = "text-align:center;"><strong>Or create your own posts</strong></h3>
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+
+    </div>
+{% endblock %}

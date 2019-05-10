@@ -1,0 +1,41 @@
+{%extends "header_footer.html"%}
+{%load staticfiles%}
+
+
+{%block content%}
+
+
+<br>
+<br>
+<div class="jumbotron jumbotron-fluid" id="first_jumbo1">
+  <div class="container text-center ">
+    <h2>About Raymond</h2>
+
+    <!-- <h3>This pa</h3> -->
+  </div>
+  </div>
+
+
+<div class="container">
+  <img src="{% static 'write_space/images/Raymond.jpg' %}" alt="" style="height:200px;width:200px;border-radius:50%">
+  <h4>I am Raymond, An electrical/electronics technician and a chatbot developer(now, also a software developer)
+    from Nigeria.<br>
+  I built this site as path of my development journey toward becoming a django developer.<br>
+  Since you are here, i would love it if you
+go through the site, check things out and give me feedback on what i did and didn't do right.<br>
+You can reach me on the links below</h4>
+
+
+
+
+  <div class="text-center" >
+    <a href="#" class="about_anchor"><i class="fa fa-twitter"></i></a>
+    <a href="https://linkedin.com/in/raymond-olisaemeka-3a67b9160" class="about_anchor"><i class="fa fa-linkedin"></i></a>
+    <a href="#"><i class="fa fa-github"></i></a>
+  </div>
+
+</div>
+<br>
+<br>
+<br>
+{%endblock%}

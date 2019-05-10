@@ -1,0 +1,56 @@
+{%extends "header_footer.html"%}
+
+{%block content%}
+<br>
+<br>
+<br>
+<br>
+{%if saved_posts%}
+
+
+<div class="container">
+  <div class="row">
+
+    {% for post in saved_posts %}
+
+
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post">
+      {%if post.main_image%}
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-4 banner_post_image" >
+      <img src="{{post.main_image.url}}" class="img-responsive" alt="">
+    </div>
+    {%endif%}
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-8 banner_post_content">
+      <div>
+        <h1><a href="{% url 'posts:user_post_detail' username=post.author.username pk=post.pk %}">{{post.title}}</a></h1>
+      </div>
+      <div>
+        <h4>{{post.post_heading|safe|linebreaksbr}}</h4>
+      </div>
+      <div>
+        <h5><a href="{%url 'accounts:user_profile' pk=post.author.pk username=post.author.username %}">{{post.author}}</a></h5>
+
+        {%if post.publish_date%}
+        <p>published on {{post.publish_date|date:"D M Y"}} by {{post.author}}</p>
+        {%else%}
+        <p>created on {{post.created_at|date:"D M Y"}} by {{post.author}}</p>
+        {%endif%}
+      </div>
+     <p>Comments: {{post.comments.all.count}}</p>
+    </div>
+    </div>
+    {%endfor%}
+
+  </div>
+</div>
+
+
+
+
+{%else%}
+<div class="jumbotron">
+  <h3>No Post</h3>
+</div>
+{%endif%}
+
+{%endblock%}

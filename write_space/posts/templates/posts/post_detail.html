@@ -1,0 +1,220 @@
+{%extends 'header_footer.html '%}
+{%load staticfiles%}
+
+{%block content%}
+<div class="" style="">
+
+	<div class="container content">
+			<div class="">
+
+				<br>
+				<br>
+				<br>
+				<br>
+				{% if post.publish_date%}
+				<div class="loader">
+					<div class="">
+						<h1 class="post-title text-center">{{post.title}}</h1>
+
+						<h3 class="text-center text-muted">{{post.post_heading|safe|linebreaksbr}}</h3>
+						<div class="row text-center">
+							<div class="col-lg-1 col-md-1 col-sm-2 col-xs-3 ">
+								{%if post.author.userprofile.profile_pic%}
+							 <img src="{{post.author.userprofile.profile_pic.url}}" class="img-responsive" style="height:50px;width:50px;border-radius:50%" alt="">
+							 {%endif%}
+							 <hr>
+							 <a href="{%url 'accounts:user_profile' pk=post.author.pk username=post.author.username %}"><h5 class="name">{{post.author}}</h5></a>
+							 <br>
+							 {%if request.user != post.author %}
+							 {%if not request.user.userprofile in post.author.userprofile.follower.all %}
+							 <a href="{%url 'accounts:follow' username=post.author.username pk=post.author.pk %}">
+							 <button type="button" class="btn btn-primary"><span class="">Follow</span>
+							 </button>
+							 </a>
+							 {%else%}
+							 <a href="{%url 'accounts:unfollow' username=post.author.username pk=post.author.pk %}">
+							 <button type="button" class="btn btn-primary"><span class="">Unfollow</span>
+							 </button>
+							 </a>
+							 {%endif%}
+							 {%endif%}
+							</div>
+
+						</div>
+						<div class="row">
+							<div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+
+							</div>
+						</div>
+
+						<hr>
+						{%if post.author != request.user %}
+						{%if not post in request.user.userprofile.saved_for_future.all %}
+						<a href="{%url 'posts:save_for_future' pk=post.pk %}"><h3>Save</h3></a>
+						{%else%}
+						<a href="{%url 'posts:unsave' pk=post.pk %}"><h3>Unsave</h3></a>
+						{%endif%}
+						{%endif%}
+
+						<p>{{post.publish_date}}</p>
+					</div>
+					{%if post.main_image%}
+					<img src="{{post.main_image.url}}" class="img-responsive" style="height:70vh;width:70vw;" alt="">
+					{%endif%}
+
+					<br>
+					<div class="date postdate">
+						<span class="glyphicon glyphicon-eye-open">{{post.viewed.count}}</span>
+						{%if post.author == request.user %}
+						<span class="glyphicon glyphicon-thumbs-up">{{post.clap.count}}</span>
+						{%else%}
+						<a href="{%url 'posts:clap' pk=post.pk %}"><span class="glyphicon glyphicon-thumbs-up">{{post.clap.count}}</span></a>
+						{%endif%}
+
+						{%if post.author == request.user%}
+						<a class="btn btn-default" href="{% url 'posts:post_unpublish' pk=post.pk%}">Unpublish</a>
+						<a class="btn btn-primary" href="{% url 'posts:edit_post' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+						<a class="btn btn-primary" href="{% url 'posts:delete_post' username=post.author.username pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+						{%endif%}
+					</div>
+					<div class="" style="margin-top:50px;">
+						<h4>{{post.text|safe|linebreaksbr}}</h4>
+						<hr>
+					</div>
+
+					</div>
+					</div>
+		 </div>
+			 <br>
+			 <br>
+
+			 <div class="container">
+				<div class="row">
+					<h3 class="text-center">Recommended Read</h3>
+
+						{%if rec_history%}
+					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" style="height:450px">
+					 {%if rec_history.main_image%}
+					 <div class=" banner_post_image" >
+					 <img src="{{rec_history.main_image.url}}" class="img-responsive" alt="" style="height:200px">
+				 </div>
+				 {%endif%}
+				 <div class=" banner_post_content">
+					 <div>
+						 <h2 class="text-center"><a href="{% url 'posts:post_detail' pk=rec_history.pk %}">{{rec_history.title}}</a></h2>
+					 </div>
+					 <div>
+						 <h4 class="text-muted">{{rec_history.post_heading|truncatechars:64}}</h4>
+					 </div>
+					 <div>
+						 <h5><a href="{%url 'accounts:user_profile' pk=rec_history.author.pk username=rec_history.author.username %}">{{rec_history.author}}</a></h5>
+						 <p>published on {{rec_history.publish_date|date:"D M Y"}}</p>
+					 </div>
+					<p>Comments: {{rec_history.comments.all.count}}</p>
+				 </div>
+				 </div>
+				 {%endif%}
+
+				 {%if rec_follow%}
+				 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" style="height:450px">
+					 {%if rec_follow.main_image%}
+					 <div class=" banner_post_image" >
+					 <img src="{{rec_follow.main_image.url}}" class="img-responsive" alt="" style="height:200px">
+				 </div>
+				 {%endif%}
+				 <div class=" banner_post_content">
+					 <div>
+						 <h2 class="text-center"><a href="{% url 'posts:post_detail' pk=rec_follow.pk %}">{{rec_follow.title}}</a></h2>
+					 </div>
+					 <div>
+						 <h4 class="text-muted">{{rec_follow.post_heading|truncatechars:64}}</h4>
+					 </div>
+					 <div>
+						 <h5><a href="{%url 'accounts:user_profile' pk=rec_follow.author.pk username=rec_follow.author.username %}">{{rec_follow.author}}</a></h5>
+						 <p>published on {{rec_follow.publish_date|date:"D M Y"}}</p>
+					 </div>
+					<p>Comments: {{rec_follow.comments.all.count}}</p>
+				 </div>
+				 </div>
+				 {%endif%}
+
+				 {%if rec_interest%}
+				 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" style="height:450px">
+					 {%if rec_interest.main_image%}
+					 <div class=" banner_post_image" >
+					 <img src="{{rec_interest.main_image.url}}" class="img-responsive" alt="" style="height:200px">
+				 </div>
+				 {%endif%}
+				 <div class=" banner_post_content">
+					 <div>
+						 <h2 class="text-center"><a href="{% url 'posts:post_detail' pk=rec_interest.pk %}">{{rec_interest.title}}</a></h2>
+					 </div>
+					 <div>
+						 <h4 class="text-muted">{{rec_interest.post_heading|truncatechars:64}}</h4>
+					 </div>
+					 <div>
+						 <h5><a href="{%url 'accounts:user_profile' pk=rec_interest.author.pk username=rec_interest.author.username %}">{{rec_interest.author}}</a></h5>
+						 <p>published on {{rec_interest.publish_date|date:"D M Y"}}</p>
+					 </div>
+					<p>Comments: {{rec_interest.comments.all.count}}</p>
+				 </div>
+				 </div>
+				 {%endif%}
+
+				</div>
+			 </div>
+
+		 <br>
+		 <br>
+		 <div class="container">
+			<a class="btn btn-primary btn-comment" href="{% url 'posts:add_comment_to_post' pk=post.pk %}">Add Comment</a>
+		 </div>
+		 <br>
+
+		 <div class="container comment">
+			 <table border="0">
+
+
+				 {% for comment in post.comments.all %}
+
+
+				<tr>
+					<td>
+						<br>
+
+					 <div class="" style="padding:20px">
+						 {%if comment.author.userprofile.profile_pic%}
+						 <img src="{{comment.author.userprofile.profile_pic.url}}" style="height:50px;width:50px;border-radius:50%" alt="">
+              {%endif%}
+						<a href="{%url 'accounts:user_profile' pk=comment.author.pk username=comment.author.username %}"><p class="mini_pro">{{comment.author}}</p></a>
+						<p class="mini_pro">{{comment.created_at}}</p>
+					 </div>
+					 <br>
+
+				 </td>
+					<td
+					<br>
+
+						<p>{{comment.text|safe|linebreaks}}</p>
+					<br>
+				</td>
+
+				</tr>
+
+						 {% empty %}
+						 <div class="jumbotron">
+							 <h2>No comments</h2>
+						 </div>
+
+					 {% endfor %}
+					 </table>
+					 </div>
+			 {% endif %}
+
+
+</div>
+<br>
+<br>
+<br>
+
+{%endblock%}

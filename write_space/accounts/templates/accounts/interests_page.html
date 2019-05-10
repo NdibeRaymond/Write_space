@@ -1,0 +1,40 @@
+{%extends "header_footer.html" %}
+
+
+{%block content%}
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+{%if user_interests%}
+<div class="row">
+  <div class="">
+{%for cartegory in user_interests%}
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 content" style="height:400px">
+        {%if cartegory.image%}
+         <img src="{{cartegory.image.url}}" alt="" width="100%" style="padding:0px;height:200px">
+         {%endif%}
+        <a href="{%url 'posts:cartegory' name=cartegory.name %}">
+            <h1 class="no_underline text-center">{{cartegory.name}}</h1>
+        </a>
+        {%if cartegory in request.user.userprofile.interests.all %}
+        <a class="btn btn-primary" href="{% url 'posts:leave_cartegory' pk=cartegory.pk%}" style="float:right">Leave</a>
+        {%else%}
+        <a class="btn btn-primary" href="{% url 'posts:join_cartegory' pk=cartegory.pk%}" style="float:right">Join</a>
+        {%endif%}
+      </div>
+
+
+
+{%endfor%}
+</div>
+</div>
+
+
+{%endif%}
+
+{%endblock%}

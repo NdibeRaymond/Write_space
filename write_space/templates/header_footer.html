@@ -1,0 +1,274 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block body_block %}
+
+<header>
+  {% if user.is_authenticated %}
+  <nav class="navbar navbar-default navbar-fixed-top full_opacity" id="big_nav">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a class="navbar-brand head" id = "brand" href="/" style="color:white;">WriteSpace</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <!-- <li><div class="input-group" style="width:60vw;margin-top:10px;">
+          <input type="text" class="form-control" placeholder="Search for anything...">
+          <span class="input-group-btn">
+            <button class="btn btn-success" type="button" style="padding:8px;"><img src=" {% static 'write_space/images/search-magnifier-interface-symbol (1).png'%}" alt=""></button>
+          </span>
+        </div>
+      </li> -->
+      </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <div class="navbar-header">
+                <a class="navbar-brand head" href="{%url 'posts:user_post_list' username=user.username %}" style="color:white;">Posts</a>
+            </div>
+          </li>
+          <li>
+            <div class="navbar-header">
+              <a class="navbar-brand head" href="{% url 'posts:view_saved' username=request.user.username %}" style="color:white;">Saved</a>
+          </div>
+        </li>
+          <li class="dropdown">
+
+            {%if request.user.userprofile.profile_pic%}
+              <a href="#" id="no_border_bottom" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{{request.user.userprofile.profile_pic.url}}" alt="avatar" class="avatar"></a>
+            {%else%}
+            {%if request.user.userprofile.gender == 'F' %}
+              <a href="#" id="no_border_bottom" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{%static 'write_space/images/Capture8 copy.png'%}" alt="avatar" class="avatar"></a>
+            {%elif request.user.uesrprofile.gender == 'M'%}
+              <a href="#" id="no_border_bottom" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{%static 'write_space/images/Capture7 copy.png'%}" alt="avatar" class="avatar"></a>
+            {%else%}
+              <a href="#" id="no_border_bottom" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{%static 'write_space/images/neutral.png'%}" alt="avatar" class="avatar"></a>
+            {%endif%}
+            {%endif%}
+              <ul class="dropdown-menu">
+
+              <li><p style="padding-left:20px;padding-right:20px;font-weight:bold;">{{request.user.username}}</p></li>
+              <hr>
+              <li><a id="profile" href="{%url 'accounts:user_profile' username=request.user.username pk=request.user.pk %}">Profile</a></li>
+              <li><a id="profile" href="{%url 'posts:user_post_list' username=user.username %}">Posts</a></li>
+              <li><a id="profile" href="{%url 'accounts:following' username=request.user.username pk=request.user.pk %}">Folowing</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a id="profile" href="{% url 'accounts:logout' %}">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+    </div>
+  </nav>
+
+  <nav class="navbar navbar-default navbar-fixed-top full_opacity" id="small_nav">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+          <div class="navbar-header">
+            <a class="navbar-brand head" id = "brand" href="/" style="color:white;">WriteSpace</a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+        <div class="navbar-header">
+            <a class="navbar-brand head" href="{%url 'posts:user_post_list' username=user.username %}" style="color:white;">Posts</a>
+        </div>
+
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+          <div class="navbar-header">
+              <a class="navbar-brand head" href="{%url 'accounts:following' username=request.user.username pk=request.user.pk %}" style="color:white;">Following</a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+          {%if request.user.userprofile.profile_pic%}
+            <a href="#" id="no_border_bottom" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{{request.user.userprofile.profile_pic.url}}" alt="avatar" class="avatar"></a>
+          {%else%}
+          {%if request.user.userprofile.gender == 'F' %}
+            <a href="#" id="no_border_bottom" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{%static 'write_space/images/Capture8 copy.png'%}" alt="avatar" class="avatar"></a>
+          {%elif request.user.userprofile.gender == 'M'%}
+            <a href="#" id="no_border_bottom" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{%static 'write_space/images/Capture7 copy.png'%}" alt="avatar" class="avatar"></a>
+          {%else%}
+            <a href="#" id="no_border_bottom" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{%static 'write_space/images/neutral.png'%}" alt="avatar" class="avatar"></a>
+          {%endif%}
+          {%endif%}
+          <ul class="dropdown-menu">
+            <li><p style="padding-left:20px;padding-right:20px;font-weight:bold;">{{request.user.username}}</p></li>
+            <hr>
+            <li><a id="profile" href="{%url 'accounts:user_profile' username=request.user.username pk=request.user.pk %}">Profile</a></li>
+            <li><a id="profile" href="{%url 'posts:user_post_list' username=user.username %}">Posts</a></li>
+            <li><a id="profile" href="{% url 'posts:view_saved' username=request.user.username %}">Saved</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a id="profile" href="{% url 'accounts:logout' %}">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  {%else%}
+  <nav class="navbar navbar-default navbar-fixed-top top_nav">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar head"></span>
+          <span class="icon-bar head"></span>
+          <span class="icon-bar head"></span>
+        </button>
+        <a class="navbar-brand head" id = "brand" href="/">WriteSpace</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+        </ul>
+
+        <ul  class="nav navbar-nav navbar-right">
+          <li><a href="help_center.html">Help</a></li>
+          <li><a href="{% url 'accounts:signup' %}">Signup</a></li>
+          <li><a href="{% url 'accounts:login' %}" id= "login">Login</a></li>
+
+
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+  {%endif%}
+</header>
+
+<nav class="navbar navbar-default sticky">
+   <ul class="nav navbar-nav" id="profile_nav">
+     <!-- <li class="tabs__tab">
+       <a id="home" href="/" class="current">
+         <span class="links__text">Explore</span>
+       </a>
+     </li> -->
+     <li class="tabs__tab">
+       <a id="deal_hub" href="{%url 'posts:cartegory' name='Tech' %}" class="">
+         <span class="links__text">Tech</span>
+       </a>
+     </li>
+     <li class="" id = "Poll2_1">
+       <a id="talks" name="" href="{%url 'posts:cartegory' name='Business' %}">
+         <span class="">Business</span>
+       </a>
+     </li>
+     <li class="tabs__tab">
+       <a id="nominations" name="" href="{%url 'posts:cartegory' name='Relationship' %}" class="">
+         <span class="links__text">Relationship</span>
+       </a>
+     </li>
+     <li class="tabs__tab">
+       <a id="nominations" name="" href="{%url 'posts:cartegory' name='Art' %}" class="">
+         <span class="links__text">Art</span>
+       </a>
+     </li>
+   <li class="tabs__tab" id="Poll2_2">
+     <a id="nominations" name="" href="{%url 'posts:cartegory' name='Sports' %}" class="">
+       <span class="links__text">Sports</span>
+     </a>
+   </li>
+   <li class="tabs__tab" id="Poll1_1">
+     <a id="nominations" name="Polls" href="{%url 'posts:cartegory' name='Education' %}" class="">
+       <span class="links__text">Education</span>
+     </a>
+   </li>
+   <li class="" id = "Poll1_2">
+     <a id="nominations" name="" href="{%url 'posts:cartegory' name='Politics' %}" class="">
+       <span class="">Politics</span>
+     </a>
+   </li>
+   <li class="tabs__tab" id="Poll3_2">
+     <a id="nominations" name="" href="{%url 'posts:cartegory' name='Sexuality' %}" class="">
+       <span class="links__text">Sexuality</span>
+     </a>
+   </li>
+
+   <li class="" id="Poll3_1">
+     <a id="nominations" name="" href="{%url 'posts:cartegory' name='Science' %}" class="">
+       <span class="">Science</span>
+     </a>
+   </li>
+   <li class="" id= "Poll1_3">
+     <a id="nominations" name="" href="{%url 'posts:cartegory' name='Religion' %}" class="">
+       <span class="">Religion</span>
+     </a>
+   </li>
+   <li class="tabs__tab">
+     <a id="nominations" name="" href="{%url 'posts:cartegory' name='All' %}" class="">
+       <span class="links__text">More</span><span>>></span>
+     </a>
+   </li>
+   </ul>
+ </nav>
+
+{%block content%}
+{%endblock%}
+
+
+    <footer>
+      <div class="container">
+        <div class="row" style="text-align:center;font-weight:bolder;color:white;padding:auto">
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+            <br>
+            <a href="{%url 'about_me'%}" style="color:white;text-decoration:none;"><h4 >Meet Raymond!</h4></a>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+            <div>
+              <ul style="list-style-type:none;">
+                <li class="dropdown" style="padding-top:20px;">
+                  <a href="#" style="color:white;text-decoration:none;text-align:center;font-weight:bolder;"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><h4>Contact <span class="caret"></span></h4></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">+2348069736083</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">+2349035234033</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">+2348097742578</a></li>
+
+
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+            <br>
+            <a href="help_center.html" style="color:white;text-decoration:none;"><h4>Help center</h4></a>
+          </div>
+
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+            <br>
+            <a href="privacy_policy.html" style="color:white;text-decoration:none;"><h4>Privacy Policy</h4></a>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <a href="https://facebook.com/write_space"><img src="{% static 'write_space/images/facebook-logo-in-circular-button-outlined-social-symbol.png'%}" alt=""></a>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <a href="https://twitter.com/write_space"><img src="{% static 'write_space/images/twitter-circular-button.png'%}" alt=""></a>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <a href="https://instagram.com/write_space"><img src="{% static 'write_space/images/instagram.png'%}" alt=""></a>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <a href="#"><img src="{% static 'write_space/images/social-linkedin-circular-button.png'%}" alt=""></a>
+          </div>
+
+        </div>
+        <a href=".navbar" class="back-to-top"><img class="img-responsive" src="project_images/arrow-right-circle (3).png" alt=""></a>
+      </div>
+      <br>
+    </footer>
+    <footer
+    id="all_rights_reserved"><h5>© 2019 WriteSpace All rights reserved.</h5>
+    </footer>
+
+    <!-- <a href="#" class="back-to-top"><img src="arrow-in-circle-point-to-up.png" alt=""></a> -->
+    <!-- <script src="http://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>  <!-- Latest compiled and minified JavaScript --> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+
+{%endblock%}

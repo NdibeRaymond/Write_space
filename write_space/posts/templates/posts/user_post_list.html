@@ -1,0 +1,74 @@
+{%extends "header_footer.html"%}
+
+{%block content%}
+<br>
+<br>
+<br>
+<br>
+
+{%if request.user == user %}
+<div class="container">
+  <a href="{%url 'posts:create_post' username=request.user.username %}"><button type="button" class="btn btn-primary" style="float: right;">
+    <i class="fa fa-pencil" style="font-size: 16px;"></i> Create New Post</button></a>
+</div>
+<br>
+{%endif%}
+
+
+{%if user_post%}
+
+
+<div class="container">
+  <div class="row">
+
+
+
+
+
+
+    {% for post in user_post %}
+
+    {%if request.user == post.author or post.publish_date %}
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" style="height:400px">
+      {%if post.main_image%}
+      <div class=" banner_post_image">
+      <img src="{{post.main_image.url}}" class="img-responsive" alt="" style="height:200px">
+    </div>
+    {%endif%}
+    <div class=" banner_post_content">
+      <div>
+        <h1 class="text-center"><a href="{% url 'posts:user_post_detail' username=post.author.username pk=post.pk %}">{{post.title}}</a></h1>
+      </div>
+      <div>
+        <h4 class="text-muted">{{post.post_heading|truncatechars:64}}</h4>
+      </div>
+      <div>
+        <h5><a href="{%url 'accounts:user_profile' pk=post.author.pk username=post.author.username %}">{{post.author}}</a></h5>
+
+       {%if request.user == post.author %}
+        {%if post.publish_date%}
+        <p>published on {{post.publish_date|date:"D M Y"}} by {{post.author}}</p>
+        {%else%}
+        <p>created on {{post.created_at|date:"D M Y"}} by {{post.author}}</p>
+        {%endif%}
+        {%endif%}
+      </div>
+     <p>Comments: {{post.comments.all.count}}</p>
+    </div>
+    </div>
+    {%endif%}
+    {%endfor%}
+
+  </div>
+</div>
+
+
+
+
+{%else%}
+<div class="jumbotron">
+  <h3>No Post</h3>
+</div>
+{%endif%}
+
+{%endblock%}

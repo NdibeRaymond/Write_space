@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block body_block %}
+<div class="contentDiv">
+  <br>
+    <br>
+    <div class="container">
+    <a href="{% url 'landing_page' %}"><img  src="{%static 'write_space/images/close-button (4).png' %}" alt="" class="pull-right img-responsive"></a>
+    </div>
+    <br>
+    <br>
+  <div>
+
+    <div class="container jumbotron edge" style="background-color:rgba(255,255,255,1);border-radius:10px;">
+      <h1>Login</h1>
+      <p><h3><a href="{% url 'accounts:signup' %}">click here</a> to signup if you don't have an account yet</h3></p>
+
+
+    </div>
+
+    <div class="container">
+      <form method="post">
+        {%csrf_token%}
+        {%for field in form %}
+        <div class="form-group">
+          <label for="{{field.id_for_label}}">{{field.label}}</label>
+          {{field}}
+        </div>
+        {%endfor%}
+
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "header_footer.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+
+<div class="container">
+  <form enctype="multipart/form-data" method="post">
+    <div class="form-group">
+      {%csrf_token%}
+
+      {{ form.as_p }}
+    </div>
+
+
+    <button type="submit" name="button" class="btn btn-primary">Done</button>
+    <a href="{% url 'landing_page' %}"><input type="button" name="" value="skip" class="btn btn-primary"></a>
+  </form>
+
+</div>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock %}

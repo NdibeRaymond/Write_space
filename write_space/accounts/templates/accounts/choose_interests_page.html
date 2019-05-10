@@ -1,0 +1,30 @@
+{% extends "header_footer.html" %}
+{% load staticfiles %}
+
+
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+
+<div class="container">
+  <form  method="post">
+    <div class="form-group">
+      {%csrf_token%}
+
+      {{ form.as_p }}
+
+    </div>
+
+    <button type="submit" name="button" class="btn btn-primary">Continue</button>
+    <a href="{% url 'accounts:select_pic' %}"><button name="button" class="btn btn-primary">Skip</button></a>
+  </form>
+
+</div>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock %}
