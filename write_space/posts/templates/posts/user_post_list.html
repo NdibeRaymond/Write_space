@@ -1,4 +1,5 @@
 {%extends "header_footer.html"%}
+{%load staticfiles%}
 
 {%block content%}
 <br>
@@ -29,10 +30,10 @@
     {% for post in user_post %}
 
     {%if request.user == post.author or post.publish_date %}
-    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" style="height:400px">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" id="all">
       {%if post.main_image%}
       <div class=" banner_post_image">
-      <img src="{{post.main_image.url}}" class="img-responsive" alt="" style="height:200px">
+      <img src="{{post.main_image.url}}" class="img-responsive" alt="" id="all_img">
     </div>
     {%endif%}
     <div class=" banner_post_content">

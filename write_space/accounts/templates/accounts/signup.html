@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% load crispy_forms_tags %}
+
 
 {% block body_block %}
   <br>
-  <div class="container">
+  <div class="container" >
   <a href="{% url 'landing_page' %}"><img  src="{%static 'write_space/images/close-button (4).png' %}" alt="" class="pull-right img-responsive"></a>
   </div>
   <br>
@@ -20,7 +20,7 @@
 
         {%csrf_token%}
 
-        {{ form.as_p }}
+        {%include 'includes/bs3_form.html' with form=form%}
         {{ gender_form.as_p }}
 
         <button type="submit" name="button" class="btn btn-primary">Sign Up</button>
@@ -35,5 +35,10 @@
 <br>
 <br>
 <br>
+
+
+
+
+
 
 {% endblock %}

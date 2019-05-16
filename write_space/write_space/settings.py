@@ -41,14 +41,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "mptt",
-    "crispy_forms",
-    "ckeditor",
-    "ckeditor_uploader",
+    "widget_tweaks",
+    # "crispy_forms",
+    # "ckeditor",
+    # "ckeditor_uploader",
     "accounts",
     "posts",
 ]
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
-CKEDITOR_UPLOAD_PATH = "uploads/"
+# CRISPY_TEMPLATE_PACK = 'bootstrap3'
+# CKEDITOR_UPLOAD_PATH = "uploads/"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -11,9 +11,9 @@
   <div class="row">
     <div class="">
   {%for cartegory in current_cartegory%}
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 content" style="height:400px">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 content" id="all">
           {%if cartegory.image%}
-           <img src="{{cartegory.image.url}}" alt="" width="100%" style="padding:0px;height:200px">
+           <img src="{{cartegory.image.url}}" alt="" width="100%" id="all_img">
            {%endif%}
           <a href="{%url 'posts:cartegory' name=cartegory.name %}">
               <h1 class="no_underline text-center">{{cartegory.name}}</h1>
@@ -45,10 +45,10 @@
       {% for post in current_cartegory_posts %}
       {%if request.user == post.author or post.publish_date %}
 
-      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" style="height:500px">
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" id="all">
         {%if post.main_image%}
         <div class=" banner_post_image"  >
-        <img src="{{post.main_image.url}}" class="img-responsive" alt="" style="width:100%;height:200px">
+        <img src="{{post.main_image.url}}" class="img-responsive" alt="" id="all_img">
       </div>
       {%endif%}
       <div class=" banner_post_content">

@@ -6,6 +6,12 @@ from collections import Counter
 import random
 # from django.http import request
 
+
+#########################################
+##This is the recommendation Engine. The class that helps recommendation
+##posts based on the categories you like, the most viewed posts by the people you follow,
+##your post viewing history, and the most viewed posts of allow
+#######################################
 class recEngine():
 
     def get_queryset(request=None,query=None):
@@ -26,6 +32,10 @@ class recEngine():
         elif query == "all_cartegories":
             return all_cartegories
 
+
+##################################################
+##This function returns five most popular posts
+###############################################
     def most_popular(request):
         all_cartegories = recEngine.get_queryset(request,query = "all_cartegories")
         all_posts = recEngine.get_queryset(request,query = "all_posts")
@@ -60,6 +70,10 @@ class recEngine():
 
 
 
+
+######################################################
+##This function returns 1 most viewed post among people you follow
+#####################################################
     def mvpu_follow(request):
         users = recEngine.get_queryset(request,query = "users")
         user = recEngine.get_queryset(request,query = "user")
@@ -90,11 +104,16 @@ class recEngine():
 
 
 
+#######################################################
+##This function returns one post based on the most
+##viewed cartegory in your viewing history
+#######################################################
     def rec_from_history(request):
         users = recEngine.get_queryset(request,query = "users")
         user = recEngine.get_queryset(request,query = "user")
         all_posts = recEngine.get_queryset(request,query = "all_posts")
         posts_you_viewed = all_posts.filter(viewed=user)
+        
         cartegory_of_posts = []
         for each_post in posts_you_viewed:
             cartegory_of_posts.append(each_post.cartegory)
@@ -113,6 +132,12 @@ class recEngine():
             return posts_of_cat
 
 
+
+
+################################################
+##This function returns one post based on the cartegories
+##you follow
+###############################################
     def rec_from_cat(request):
         user = recEngine.get_queryset(request,query = "user")
         all_posts = recEngine.get_queryset(request,query = "all_posts")

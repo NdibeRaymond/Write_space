@@ -1,16 +1,17 @@
 {%extends "header_footer.html" %}
+{%load staticfiles%}
 
 {% block content%}
 
 {%if user.userprofile.background_pic%}
-<div class=" container-fluid" style="margin-bottom:20px;background-image: url({{user.userprofile.background_pic.url}});
+<div class=" container-fluid" id="profile_header" style="background-image: url({{user.userprofile.background_pic.url}});
 height: 100%;background-position: center;background-repeat: no-repeat;
 background-size: cover;z-index:-10;">
 <!-- filter: blur(8px);
 -webkit-filter: blur(8px); -->
 
 {%else%}
-<div class="container-fluid" style="margin-bottom:20px;">
+<div class="container-fluid" id="profile_header">
 {%endif%}
 <br>
 <br>
@@ -18,12 +19,12 @@ background-size: cover;z-index:-10;">
 <br>
 <br>
 <br>
-<div class="" style="z-index:10">
+<div class="" >
 
 
 
   {%if request.user == user %}
-  <div class="text-muted" style="text-align: right; margin: 0px auto; width: 100%; max-width: 1300px;">
+  <div class="text-muted" id="upload_cover_photo">
    <a href="{%url 'accounts:change_pic' username=user.username pk=user.pk %}" class="no_underline" role="button">
      <span class="">+ Upload Cover Photo</span>
      <i class="fa fa-picture-o" aria-hidden="true"></i>
@@ -39,7 +40,7 @@ background-size: cover;z-index:-10;">
         {%endif%}
   <div class="profile_image" style="margin:10px;">
   {%if user.userprofile.profile_pic%}
-  <img src="{{user.userprofile.profile_pic.url}}" alt="" class="" style="height:100px;width:100px;border-radius:50%;">
+  <img src="{{user.userprofile.profile_pic.url}}" alt="" class="" id="profile_pic">
   {%else%}
 
   {%endif%}

@@ -14,7 +14,7 @@ from posts.forms import PostForm,CommentForm
 
 
 class postListView(generic.ListView):
-    # login_url="/login/"
+
     model=models.Post
     context_object_name="all_posts"
     template_name="posts/posts_list.html"
@@ -37,7 +37,6 @@ class postListView(generic.ListView):
 
 class PostDetailView(generic.DetailView):
     template_name="posts/post_detail.html"
-    # context_object_name="post"
     model=models.Post
 
     def get_context_data(self,**kwargs):
@@ -58,10 +57,11 @@ class PostDetailView(generic.DetailView):
 
 
 
-
+#############################################################
+## This is the view that shows the details of a post a given user have created
+#############################################################
 class userPostDetailView(LoginRequiredMixin,generic.DetailView):
     login_url="/accounts/login/"
-    # context_object_name="post"
     template_name="posts/user_post_detail.html"
     model=models.Post
     def get_context_data(self,**kwargs):
@@ -77,11 +77,16 @@ class userPostDetailView(LoginRequiredMixin,generic.DetailView):
         context["rec_interest"] = recommedation_from_user_interests
         return context
 
+
+
+
+########################################################
+##This is the view that shows all the posts a given user have created
+#######################################################
 class userPostListView(LoginRequiredMixin,generic.ListView):
     login_url="/accounts/login/"
     template_name="posts/user_post_list.html"
     context_object_name="user_post"
-    # redirect_field_name="posts/user_post_list.html"
     model=models.Post
 
     def get_queryset(self):
@@ -95,26 +100,13 @@ class userPostListView(LoginRequiredMixin,generic.ListView):
         return context
 
 
-# class myDraftDetailView(generic.DetailView):
-#     # context_object_name="post"
-#     model=models.Post
 
-# class myDraftListView(LoginRequiredMixin,generic.ListView):
-#     login_url="/login/"
-#     template_name="posts/post_draft_list.html"
-#     context_object_name="all_drafts"
-#     redirect_field_name="posts/post_draft_list.html"
-#     model=models.Post
-#
-#     def get_queryset(self):
-#         return Post.objects.filter(publish_date__isnull=True,author__exact=get_user_model().get(username__exact=request.user.username)).order_by("created_at")
-
-
+#########################################################
+##This view creates a post
+#########################################################
 class CreatePostView(LoginRequiredMixin,generic.CreateView):
     login_url="/accounts/login/"
     redirect_field_name="posts/user_post_detail.html"
-    # success_url=reverse("posts:user_post_detail",kwargs={"pk":request.POST.pk})
-
 
     form_class=PostForm
     model=models.Post
@@ -124,27 +116,33 @@ class CreatePostView(LoginRequiredMixin,generic.CreateView):
         return super().form_valid(form)
 
 
+
+##########################################################
+##this view updates a post
+#########################################################
 class PostUpdateView(generic.UpdateView,LoginRequiredMixin):
     login_url="/accounts/login/"
     redirect_field_name="posts/user_post_detail.html"
     form_class=PostForm
     model=models.Post
-    # success_url= reverse("posts:user_post_detail",kwargs={"pk":models.Post.pk})
-
-    # def form_valid(self, form):
-    #     form.instance.author = self.request.user
-    #     return super().form_valid(form)
 
 
+
+############################################################
+##This view is used to delete a post
+##########################################################
 class PostDeleteView(generic.DeleteView,LoginRequiredMixin):
-    # success_url=reverse_lazy("posts:user_post_list")
-    # redirect_field_name = "posts/user_post_list.html"
+
     login_url="/accounts/login/"
     model=models.Post
     def get_success_url(self,**kwargs):
         return reverse_lazy("posts:user_post_list",kwargs={"username":self.kwargs.get("username")})
 
 
+
+#############################################################
+##This view is used to save a post for future viewing
+###########################################################
 class postSaveView(LoginRequiredMixin,generic.DetailView):
     login_url="/accounts/login/"
     success_url = reverse_lazy("posts:post_detail")
@@ -161,18 +159,12 @@ class postSaveView(LoginRequiredMixin,generic.DetailView):
         context = super(postSaveView,self).get_context_data(**kwargs)
         return context
 
-class savedListView(LoginRequiredMixin,generic.ListView):
-    login_url="/accounts/login/"
-    model = userProfile
-    context_object_name = "saved_posts"
-    template_name = "posts/view_saved.html"
-
-    def get_queryset(self,**kwargs):
-        user =userProfile.objects.get(user=get_user_model().objects.get(username=self.kwargs.get("username")))
-        saved_posts = user.saved_for_future.all()
-        return saved_posts
 
 
+
+########################################################
+##This view is used to unsave a post a given user saved for future viewing
+########################################################
 class postUnsaveView(LoginRequiredMixin,generic.DetailView):
     login_url="/accounts/login/"
     success_url = reverse_lazy("posts:post_detail")
@@ -190,6 +182,28 @@ class postUnsaveView(LoginRequiredMixin,generic.DetailView):
         return context
 
 
+
+
+
+######################################################
+##This view shows a list of all the posts a user have saved for future viewing
+######################################################
+class savedListView(LoginRequiredMixin,generic.ListView):
+    login_url="/accounts/login/"
+    model = userProfile
+    context_object_name = "saved_posts"
+    template_name = "posts/view_saved.html"
+
+    def get_queryset(self,**kwargs):
+        user =userProfile.objects.get(user=get_user_model().objects.get(username=self.kwargs.get("username")))
+        saved_posts = user.saved_for_future.all()
+        return saved_posts
+
+
+
+###########################################################
+##This view is used to clap for a post, like 'LIKE'
+###########################################################
 class postClapView(LoginRequiredMixin,generic.DetailView):
     login_url="/accounts/login/"
     success_url = reverse_lazy("posts:post_detail")
@@ -203,11 +217,13 @@ class postClapView(LoginRequiredMixin,generic.DetailView):
 
 
 
-
+#########################################################
+##This view shows all the posts and child carteories associated
+## to a given parent cartegory
+##########################################################
 class cartegoryView(generic.ListView):
     template_name="posts/cartegory_page.html"
-    # context_object_name="posts"
-    # model=models.POST
+
 
     def get_queryset(self,**kwargs):
         if self.kwargs.get("name") == "All":
@@ -227,12 +243,6 @@ class cartegoryView(generic.ListView):
         print(self.current)
         context["current_cartegory"] = self.current
         context["current_cartegory_posts"] = cartegory_posts
-        # for each in self.current.getlist:
-        #     print(each.pk)
-        #     print(each.name)
-        #     print(self.request.user.userprofile.interests)
-        #     print(each in self.request.user.userprofile.interests)
-        #     print(each.name in self.request.user.userprofile.interests)
 
         return context
 
@@ -248,22 +258,30 @@ class cartegoryView(generic.ListView):
 ########################################################################
 ########################################################################
 
+
+############################################################
+##this view lets a user join a cartegory
+###########################################################
 @login_required
 def join_cartegory_view(request,**kwargs):
     userprofile=userProfile.objects.get(user__exact=request.user)
     cartegory = models.Cartegory.objects.get(pk=kwargs.get("pk"))
     if not cartegory in userprofile.interests.all():
         userprofile.interests.add(cartegory)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#returns to the previous page from which a user accessed the current page
 
 
+
+############################################################
+##this view lets a user leave a cartegory
+###########################################################
 @login_required
 def leave_cartegory_view(request,**kwargs):
     userprofile=userProfile.objects.get(user__exact=request.user)
     cartegory = models.Cartegory.objects.get(pk=kwargs.get("pk"))
     if cartegory in userprofile.interests.all():
         userprofile.interests.remove(cartegory)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#returns to the previous page from which a user accessed the current page
 
 
 @login_required
@@ -289,64 +307,10 @@ def add_comment_to_post(request,pk):
 def post_publish(request,pk):
     post=get_object_or_404(models.Post, pk=pk)
     post.publish()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#returns to the previous page from which a user accessed the current page
 
 @login_required
 def post_unpublish(request,pk):
     post=get_object_or_404(models.Post, pk=pk)
     post.unpublish()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-# Create your views here.
-
-
-# class postList(generic.ListView):
-#     model = models.Post
-#
-#
-# class UserPosts(generic.ListView):
-#     model = models.Post
-#     template_name = "posts/user_post_list.html"
-#
-#     def get_queryset(self):
-#         try:
-#             self.post_user = User.objects.prefetch_related("posts").get(username__iexact = self.kwargs.get("username"))
-#         except User.DoesNotExist:
-#             raise Http404
-#         else:
-#             return self.post_user.posts.all()
-#
-#     def get_context_data(self,**kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context["post_user"] = self.post_user
-#         return context
-#
-#
-# class PostDetail(generic.DetailView):
-#     model = models.Post
-#     def get_queryset(self):
-#         queryset = super().get_queryset()
-#         return queryset.filter(user__username__iexact = self.kwargs.get("username"))
-#
-#
-# class CreatePost(LoginRequiredMixin,generic.CreateView):
-#     fields = ("message","group")
-#     model = models.Post
-#
-#     def form_valid(self,form):
-#         self.object = form.save(commit = False)
-#         self.object.user = self.request.user
-#         self.object.save()
-#         return super().form_valid(form)
-#
-# class DeletePost(LoginRequiredMixin,generic.DeleteView):
-#     model = models.Post
-#     success_url = reverse_lazy("posts:all")
-#
-#     def get_queryset(self):
-#         queryset = super().get_queryset()
-#         return queryset.filter(user_id = self.request.user.id)
-#
-#     def delete(self,*args,**kwargs):
-#         messages.success(self.request,"Post Deleted")
-#         return super().delete(*args,**kwargs)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#returns to the previous page from which a user accessed the current page

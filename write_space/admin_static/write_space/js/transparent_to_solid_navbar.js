@@ -7,12 +7,42 @@ $(window).on('load', function(){
     $("#small_nav").addClass("hidden");
 
   }
+  if($(window).width()<=1000){
+    $("#Poll1_1").addClass("hidden");
+    $("#Poll1_2").addClass("hidden");
+    $("#Poll1_3").addClass("hidden");
+  }else{
+    $("#Poll1_1").removeClass("hidden");
+    $("#Poll1_2").removeClass("hidden");
+    $("#Poll1_3").removeClass("hidden");
+
+  }
+  if($(window).width()<=700){
+    $("#Poll2_1").addClass("hidden");
+    $("#Poll2_2").addClass("hidden");
+
+  }else{
+    $("#Poll2_1").removeClass("hidden");
+    $("#Poll2_2").removeClass("hidden");
+
+
+  }
+  if($(window).width()<=500){
+    $("#Poll3_1").addClass("hidden");
+    $("#Poll3_2").addClass("hidden");
+
+  }else{
+    $("#Poll3_1").removeClass("hidden");
+    $("#Poll3_2").removeClass("hidden");
+
+
+  }
+
 
     })
 
 $(window).on("resize", function(){
   if($(window).width()<=786){
-    console.log($(window).width());
     $("#big_nav").addClass("hidden");
     $("#small_nav").removeClass("hidden");
   }else{
@@ -20,8 +50,41 @@ $(window).on("resize", function(){
     $("#small_nav").addClass("hidden");
 
   }
+  if($(window).width()<=1000){
+    $("#Poll1_1").addClass("hidden");
+    $("#Poll1_2").addClass("hidden");
+    $("#Poll1_3").addClass("hidden");
+  }else{
+    $("#Poll1_1").removeClass("hidden");
+    $("#Poll1_2").removeClass("hidden");
+    $("#Poll1_3").removeClass("hidden");
+
+  }
+  if($(window).width()<=700){
+    $("#Poll2_1").addClass("hidden");
+    $("#Poll2_2").addClass("hidden");
+
+  }else{
+    $("#Poll2_1").removeClass("hidden");
+    $("#Poll2_2").removeClass("hidden");
+
+
+  }
+  if($(window).width()<=500){
+    $("#Poll3_1").addClass("hidden");
+    $("#Poll3_2").addClass("hidden");
+
+  }else{
+    $("#Poll3_1").removeClass("hidden");
+    $("#Poll3_2").removeClass("hidden");
+
+
+  }
+
 
     })
+
+
 //
 
 /**
@@ -53,104 +116,6 @@ $(".navbar-toggle.collapsed").on("click", function(){
   $('.navbar.top_nav').addClass("scrolled");}else{
     checkScroll();
   };})
-
-
-  $(".panel-footer").on("click", function(){
-    if(($("#collapseOne").is(":visible")) == false){
-      document.querySelector(".panel-title").textContent = "Click to see less Nominations";
-    // $('.navbar').addClass("scrolled");
-  }else{
-      document.querySelector(".panel-title").textContent = "Click to see all featured Nominations"
-      // checkScroll();
-    };})
-
-
-  $("#home").on("click",function(){
-
-    $(".home").removeClass("hidden");
-    $("#home").addClass("current");
-
-
-    $(".deal_hub").addClass("hidden");
-    $("#deal_hub").removeClass("current");
-
-    $(".talks").addClass("hidden");
-    $("#talks").removeClass("current");
-
-    $(".nominations").addClass("hidden");
-    $("#nominations").removeClass("current");
-
-  })
-
-  $("#deal_hub").on("click",function(){
-
-    $(".home").addClass("hidden");
-    $("#home").removeClass("current");
-
-
-    $(".deal_hub").removeClass("hidden");
-    $("#deal_hub").addClass("current");
-
-    $(".talks").addClass("hidden");
-    $("#talks").removeClass("current");
-
-    $(".nominations").addClass("hidden");
-    $("#nominations").removeClass("current");
-  })
-
-
-  $("#talks").on("click",function(){
-
-    $(".home").addClass("hidden");
-    $("#home").removeClass("current");
-
-
-    $(".deal_hub").addClass("hidden");
-    $("#deal_hub").removeClass("current");
-
-    $(".talks").removeClass("hidden");
-    $("#talks").addClass("current");
-
-    $(".nominations").addClass("hidden");
-    $("#nominations").removeClass("current");
-
-  })
-
-  $("#nominations").on("click",function(){
-
-    $(".home").addClass("hidden");
-    $("#home").removeClass("current");
-
-
-    $(".deal_hub").addClass("hidden");
-    $("#deal_hub").removeClass("current");
-
-    $(".talks").addClass("hidden");
-    $("#talks").removeClass("current");
-
-    $(".nominations").removeClass("hidden");
-    $("#nominations").addClass("current");
-
-  })
-
-
-  $(window).on('load', function(){
-
-      $(".home").removeClass("hidden");
-      $("#home").addClass("current");
-
-
-      $(".deal_hub").addClass("hidden");
-      $("#deal_hub").removeClass("current");
-
-      $(".talks").addClass("hidden");
-      $("#talks").removeClass("current");
-
-      $(".nominations").addClass("hidden");
-      $("#nominations").removeClass("current");
-
-      })
-
 
 
 /******************************************************************************/

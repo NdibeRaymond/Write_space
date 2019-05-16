@@ -1,4 +1,5 @@
 {%extends 'header_footer.html'%}
+{%load staticfiles%}
 
 
 
@@ -19,7 +20,7 @@
 						<div class="row text-center">
 							{%if post.author.userprofile_pic%}
 							<div class="col-lg-1 col-md-1 col-sm-2 col-xs-3 ">
-	             <img src="{{post.author.userprofile.profile_pic.url}}" class="img-responsive" style="height:50px;width:50px;border-radius:50%" alt="">
+	             <img src="{{post.author.userprofile.profile_pic.url}}" class="img-responsive avatar" alt="">
                <hr>
 							 {%endif%}
 							 <a href="{%url 'accounts:user_profile' pk=post.author.pk username=post.author.username %}"><h5 class="name">{{post.author}}</h5></a>
@@ -60,7 +61,7 @@
             {% endif %}
           </div>
 					{%if post.main_image%}
-					<img src="{{post.main_image.url}}" class="img-responsive" style="height:70vh;width:70vw;" alt="">
+					<img src="{{post.main_image.url}}" class="img-responsive" id="detail_img" alt="">
 					{%endif%}
 
           <br>
@@ -82,7 +83,7 @@
             <a class="btn btn-primary" href="{% url 'posts:delete_post' username=post.author.username pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
             {%endif%}
           </div>
-					<div class="" style="margin-top:50px;">
+					<div class="" id="post_text">
 						<h4>{{post.text|safe|linebreaksbr}}</h4>
 	          <hr>
 					</div>
@@ -97,10 +98,10 @@
 				<h3 class="text-center">Recommended Read</h3>
 
 					{%if rec_history%}
-				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" style="height:450px">
+				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" id="featured1">
 				 {%if rec_history.main_image%}
 				 <div class=" banner_post_image" >
-				 <img src="{{rec_history.main_image.url}}" class="img-responsive" alt="" style="height:200px">
+				 <img src="{{rec_history.main_image.url}}" class="img-responsive" alt="" id="featured_img1">
 			 </div>
 			 {%endif%}
 			 <div class=" banner_post_content">
@@ -120,10 +121,10 @@
 			 {%endif%}
 
 			 {%if rec_follow%}
-			 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" style="height:450px">
+			 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" id="featured1">
 				 {%if rec_follow.main_image%}
 				 <div class=" banner_post_image" >
-				 <img src="{{rec_follow.main_image.url}}" class="img-responsive" alt="" style="height:200px">
+				 <img src="{{rec_follow.main_image.url}}" class="img-responsive" alt="" id="featured_img1">
 			 </div>
 			 {%endif%}
 			 <div class=" banner_post_content">
@@ -143,10 +144,10 @@
 			 {%endif%}
 
 			 {%if rec_interest%}
-			 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" style="height:450px">
+			 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" id="featured1">
 				 {%if rec_interest.main_image%}
 				 <div class=" banner_post_image" >
-				 <img src="{{rec_interest.main_image.url}}" class="img-responsive" alt="" style="height:200px">
+				 <img src="{{rec_interest.main_image.url}}" class="img-responsive" alt="" id="featured_img1">
 			 </div>
 			 {%endif%}
 			 <div class=" banner_post_content">
@@ -191,9 +192,9 @@
 				 <td>
 					 <br>
 
-					<div class="" style="padding:20px">
+					<div class="comment">
 						{%if comment.author.userprofile.profile_pic%}
-						<img src="{{comment.author.userprofile.profile_pic.url}}" style="height:50px;width:50px;border-radius:50%" alt="">
+						<img src="{{comment.author.userprofile.profile_pic.url}}" class="avatar" alt="">
             {%endif%}
 					 <a href="{%url 'accounts:user_profile' pk=comment.author.pk username=comment.author.username %}"><p class="mini_pro">{{comment.author}}</p></a>
 					 <p class="mini_pro">{{comment.created_at}}</p>

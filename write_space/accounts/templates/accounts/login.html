@@ -22,12 +22,7 @@
     <div class="container">
       <form method="post">
         {%csrf_token%}
-        {%for field in form %}
-        <div class="form-group">
-          <label for="{{field.id_for_label}}">{{field.label}}</label>
-          {{field}}
-        </div>
-        {%endfor%}
+        {%include 'includes/bs3_form.html' with form=form%}
 
         <button type="submit" class="btn btn-primary">Login</button>
       </form>
