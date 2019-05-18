@@ -28,15 +28,3 @@ class userProfile(models.Model):
 
     def get_success_url(self):
         return HttpResponseRedirect(reverse_lazy(self.request.META.get('HTTP_REFERER')))
-
-
-# class cartegoryInterest(models.Model):
-#     user=models.ForeignKey(userProfile, on_delete=models.CASCADE, related_name="cartegory_interested")
-#     cartegories=models.ForeignKey(Cartegory,on_delete=models.CASCADE, related_name="user_interested")
-#
-#
-#     def __str__(self):
-#         return self.user.user.username
-#
-#     class Meta:
-#         unique_together=("user","cartegories")

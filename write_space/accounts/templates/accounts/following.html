@@ -1,4 +1,5 @@
 {%extends "header_footer.html" %}
+{%load staticfiles%}
 
 
 {%block content%}
@@ -17,7 +18,7 @@
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 text-center">
       <div class="" style="background:white; padding:10px">
         {%if each_person.profile_pic%}
-       <img src="{{each_person.profile_pic.url}}" class="img-responsive" style="height:50px;width:50px;border-radius:50%" alt="">
+       <img src="{{each_person.profile_pic.url}}" class="img-responsive avatar"  alt="">
        {%endif%}
        <br>
        <a href="{%url 'accounts:user_profile' username=each_person.user.username pk=each_person.pk %}"><h5 class="name no_underline">{{each_person.user.username}}</h5></a>

@@ -38,7 +38,7 @@ background-size: cover;z-index:-10;">
           <span class="profile__photo_upload_text">Edit</span>
         </button></a>
         {%endif%}
-  <div class="profile_image" style="margin:10px;">
+  <div style="margin:10px;">
   {%if user.userprofile.profile_pic%}
   <img src="{{user.userprofile.profile_pic.url}}" alt="" class="" id="profile_pic">
   {%else%}
@@ -86,7 +86,7 @@ background-size: cover;z-index:-10;">
 <ul id="hori_list" class="text-center">
 
   <li>
-    <a href="{%url 'posts:user_post_list' username=user.username %}" class="no_underline" style="color:black;">
+    <a href="{%url 'posts:user_post_list' username=user.username %}" style="text-decoration:none;color:black;">
       <span class="" style="margin-right:50px;margin-left:50px;">
         <div class="">{{user_posts.count}}</div>
         <div class="text-muted">Posts</div>

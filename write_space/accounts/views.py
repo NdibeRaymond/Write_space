@@ -1,10 +1,9 @@
-from django.shortcuts import render,get_object_or_404,redirect
+from django.shortcuts import render,redirect
 from django.urls import reverse,reverse_lazy
 from . import forms
 from django.views import generic
 from accounts import models
 from posts.models import Cartegory,Post
-from django.forms import ChoiceField
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -14,14 +13,14 @@ from django.views.generic import CreateView
 
 # Create your views here.
 
+
+#########################################################
+## used to implement the profile viewing functionality
+######################################################
 class profileView(LoginRequiredMixin,generic.TemplateView):
     login_url="/accounts/login/"
     template_name="accounts/user_profile.html"
-    # context_object_name="posts"
     model=Post
-    # def get_queryset(self,**kwargs):
-    #     post=Post.objects.filter(author=get_user_model().objects.get(pk=self.kwargs.get("pk")))
-    #     return post
 
     def get_context_data(self,**kwargs):
         all_posts = Post.objects.all()
@@ -52,19 +51,24 @@ class profileView(LoginRequiredMixin,generic.TemplateView):
         return context
 
 
-
+#################################################
+## allows a user to create a bio
+#################################################
 class Bio(LoginRequiredMixin,generic.UpdateView):
     login_url="/accounts/login/"
     template_name="accounts/my_bio_form.html"
     form_class=forms.bioForm
     model=models.userProfile
 
+
+#################################################
+## allows a user the view the available cartegories
+#################################################
 class interestView(LoginRequiredMixin,generic.DetailView):
     login_url="/accounts/login/"
     template_name="accounts/interests_page.html"
     model=models.userProfile
     context_object_name="user_interests"
-
 
     def get_context_data(self,**kwargs):
         user_interests = models.userProfile.objects.get(user__exact=get_user_model().objects.get(username__exact=self.kwargs.get("username"))).interests.all()
@@ -72,44 +76,10 @@ class interestView(LoginRequiredMixin,generic.DetailView):
         context["user_interests"]=user_interests
         return context
 
-# class followView(generic.UpdateView):
-#     # template_name="accounts/user_profile.html"
-#     # context_object_name="user"
-#     # success_url = reverse_lazy("accounts:user_profile")
-#     model= get_user_model()
-#
-#     def get_context_data(self,**kwargs):
-#         userprofile=models.userProfile.objects.get(pk=get_user_model().objects.get(pk=self.kwargs.get("pk")))
-#         userprofile.follower.add(self.request.user.userprofile)
-#         # userprofiles=models.userProfile.objects.all()
-#         # following=userprofiles.filter(follower=userprofile)
-#         context = super(followView,self).get_context_data(**kwargs)
-#         # context["user"]=get_user_model().objects.get(username__exact=self.kwargs.get("username"))
-#         # context["following"]=following
-#         return context
-#     def get_success_url(self):
-#         return HttpResponseRedirect(reverse_lazy(self.request.META.get('HTTP_REFERER')))
-#
-#
-# class unfollowView(generic.UpdateView):
-#     # template_name="accounts/user_profile.html"
-#     # context_object_name="user"
-#     # success_url = reverse_lazy("accounts:user_profile")
-#     model=get_user_model()
-#
-#     def get_context_data(self,**kwargs):
-#         print(self.kwargs)
-#         userprofile=models.userProfile.objects.get(pk=get_user_model().objects.get(pk=self.kwargs.get("pk")))
-#         userprofile.follower.remove(self.request.user.userprofile)
-#
-#         # userprofiles=models.userProfile.objects.all()
-#         # following=userprofiles.filter(follower=userprofile)
-#         context = super(unfollowView,self).get_context_data(**kwargs)
-#         # context["user"]=get_user_model().objects.get(username__exact=self.kwargs.get("username"))
-#         # context["following"]=following
-#         return context
-#     def get_success_url(self):
-#         return HttpResponseRedirect(reverse_lazy(self.request.META.get('HTTP_REFERER')))
+
+################################################
+## allows a user to follow another user
+#############################################
 @login_required
 def follow_view(request,**kwargs):
     userprofile=models.userProfile.objects.get(pk=kwargs.get("pk"))
@@ -118,6 +88,9 @@ def follow_view(request,**kwargs):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+#################################################
+## this views allows a user to see all the people they follow
+#################################################
 class Following(LoginRequiredMixin,generic.ListView):
     login_url="/accounts/login/"
     model = models.userProfile
@@ -131,7 +104,9 @@ class Following(LoginRequiredMixin,generic.ListView):
         return people_you_follow
 
 
-
+###################################################
+## allows a user to unfollow another user
+###################################################
 @login_required
 def unfollow_view(request,**kwargs):
     userprofile=models.userProfile.objects.get(pk=kwargs.get("pk"))
@@ -140,61 +115,30 @@ def unfollow_view(request,**kwargs):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+###########################################################
+## allows a user to change their profile/background pic
+###########################################################
 class changeProfilePicView(LoginRequiredMixin,generic.UpdateView):
     login_url="/accounts/login/"
     template_name="accounts/change_profile_pic_form.html"
     form_class=forms.profilePicSelectForm
     model=models.userProfile
 
-# @login_required
-# def changeprofilepicture(request):
-#     profilepictureselected = False
-#     # profile=get_object_or_404(request.user.userprofile,pk=pk)
-#     profile=request.user.userprofile
-#
-#     if request.method == 'POST':
-#         profile_pic_select_form = forms.profilePicSelectForm(data=request.POST,instance=profile)
-#         # ChoiceField.clean(forms.userGenderForm(),gender_form)
-#         # print(cleaned_gender_form)
-#         if profile_pic_select_form.is_valid():
-#             user_pic = profile_pic_select_form.save(commit=False)
-#
-#             if 'profile_pic' in request.FILES:
-#                 print('found it')
-#                 print(user_pic)
-#                 # print(request.FILES)
-#                 # print(user_pic.userprofile.profile_pic)
-#                 # If yes, then grab it from the POST form reply
-#                 user_pic.profile_pic = request.FILES['profile_pic']
-#
-#             # Now save model
-#             user_pic.save()
-#
-#             profilepictureselected = True
-#             print(profilepictureselected)
-#
-#             return reverse_lazy(profile.get_absolute_url())
-#         else:
-#             print(profile_pic_select_form.errors)
-#     else:
-#         profile_pic_select_form = forms.profilePicSelectForm()
-#     return render(request,'accounts/change_profile_pic_form.html',{'form':profile_pic_select_form,'profilepictureselected':profilepictureselected})
-#
 
 
-
+#############################################################
+## allows a user to sign up to the platform
+#############################################################
 def signup(request):
 
     signedup = False
 
     if request.method == 'POST':
-
+        print(request.POST["gender"])##########The solution
         # Get info from "both" forms
         # It appears as one form to the user on the .html page
         signup_form = forms.signupForm(data=request.POST)
         gender_form = forms.userGenderForm(data=request.POST)
-        # ChoiceField.clean(forms.userGenderForm(),gender_form)
-        # print(cleaned_gender_form
         # Check to see both forms are valid
         if signup_form.is_valid() and gender_form.is_valid():
 
@@ -209,15 +153,6 @@ def signup(request):
             user_gender=gender_form.save(commit=False)
             user_gender.user = user
             user_gender.save()
-
-
-
-            # set a onetoone relationship between userprofileinfo model and get_user_model() model
-            # models.userProfile.objects.create(user=get_user_model().objects.get(username__iexact=user.username)).save()
-
-
-
-
             # Registration Successful!
             signedup = True
             return HttpResponseRedirect(reverse_lazy("login"))
@@ -232,84 +167,27 @@ def signup(request):
         gender_form=forms.userGenderForm()
 
     return render(request,'accounts/signup.html',{'form':signup_form,'signedup':signedup,"gender_form":gender_form})
-#
 
 
-# class signUp(CreateView):
-#     success_url=reverse_lazy("login")
-#     template_name="accounts/signup.html"
-#
-#     def get_context_data(self,**kwargs):
-#         context = super(signUp,self).get_context_data(**kwargs)
-#         context["form"] = forms.signupForm
-#         context["gender_form"]=forms.userGenderForm
-#         return context
 
 
-# class selectInterest(LoginRequiredMixin,generic.CreateView):
-#     form_class=forms.interestSelectForm
-#
-#     template_name="accounts/choose_interests_page.html"
-#
-#     def get_queryset(self):
-#         if self.request.user.is_active:
-#             try:
-#                 self.user_profile_query = models.userProfile.objects.get(user_exact=self.request.user)
-#                 if self.user_profile_query.interests:
-#                     print(self.user_profile_query.interests,"interests already selected")
-#
-#                 else:
-#                     print(self.user_profile_query.interests,"no interests selected yet")
-#             except:
-#                 pass
-#
-#
-#     def get_context_data(self,**kwargs):
-#         context = super(selectInterest,self).get_context_data(**kwargs)
-#         try:
-#             context["user_profile"] = models.userProfile.objects.get(user_exact=self.request.user)
-#         except:
-#             pass
-#         return context
-
-
-# class selectProfilePicture(LoginRequiredMixin,generic.CreateView):
-#     form_class=forms.profilePicSelectForm
-#     success_url=reverse_lazy("selectprofilepicture")
-#     template_name="accounts/choose_profile_pic_page.html"
-#
-#     def get_queryset(self):
-#         if self.request.user.is_active:
-#             try:
-#                 self.user_profile_query = models.userProfile.objects.get(user_exact=self.request.user)
-#                 if self.user_profile_query.profile_pic:
-#                     print(self.user_profile_query.profile_pic,"profile picture already selected")
-#                     HttpResponseRedirect(reverse("selectprofilepicture"))
-#                 else:
-#                     print(self.user_profile_query.profile_pic,"no profile picture selected yet")
-#             except:
-#                 pass
-#
-#
-#     def get_context_data(self,**kwargs):
-#         context = super(selectProfilePicture,self).get_context_data(**kwargs)
-#         try:
-#             context["user_profile"] = models.userProfile.objects.get(user_exact=self.request.user)
-#         except:
-#             pass
-#         return context
-
+#####################################################
+## allows a user to select his or her cartegory interests
+#####################################################
 @login_required
 def selectinterest(request):
 
     interestselected = False
     if request.method == 'POST':
+        #assigns the selected cartegories and the user instance to the interestSelectForm
         interest_select_form = forms.interestSelectForm(data=request.POST,instance=request.user)
-        # ChoiceField.clean(forms.userGenderForm(),gender_form)
-        # print(cleaned_gender_form)
+
+        #checks if the interest form is valid
         if interest_select_form.is_valid():
             user=interest_select_form.save(commit=False)
+            #gets the actual list of interests from the request.POST
             interests = request.POST.getlist('interests')
+            #iterate through them and add all of them to the user.userprofile.interests in the userprofile model
             for each_pk in interests:
                 user.userprofile.interests.add(Cartegory.objects.get(id=each_pk))
             interestselected = True
@@ -333,24 +211,22 @@ def selectinterest(request):
 #
 
 
-
+######################################################
+## allows a user to choose a profile picture
+######################################################
 @login_required
 def selectprofilepicture(request):
     profilepictureselected = False
     profile=request.user.userprofile.user
 
     if request.method == 'POST':
+        #assigns the selected profile picture and the user instance to the profilePicSelectForm
         profile_pic_select_form = forms.profilePicSelectForm(data=request.POST,instance=request.user)
-        # ChoiceField.clean(forms.userGenderForm(),gender_form)
-        # print(cleaned_gender_form)
+        #check if the selected picture is valid
         if profile_pic_select_form.is_valid():
             user_pic = profile_pic_select_form.save(commit=False)
 
             if 'profile_pic' in request.FILES:
-                print('found it')
-                print(user_pic)
-                print(request.FILES)
-                # print(user_pic.userprofile.profile_pic)
                 # If yes, then grab it from the POST form reply
                 user_pic.userprofile.profile_pic = request.FILES['profile_pic']
 

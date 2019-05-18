@@ -556,9 +556,20 @@ z-index: 100;
 }
 
 
-ul#hori_list li {
+#hori_list li {
     display:inline-block;
 }
+
+#hori_list li a{
+    text-decoration:none;
+    color:black;
+}
+
+#hori_list li span{
+    margin-right:50px;
+    margin-left:50px;
+}
+
 
 .navbar-nav#profile_nav {
     width: 100%;
@@ -590,3 +601,8 @@ ul#hori_list li {
      /* padding-top: 12px;
      padding-bottom: 12px; */
    }
+
+
+#no_underline{
+  text-decoration: none !important;
+}
