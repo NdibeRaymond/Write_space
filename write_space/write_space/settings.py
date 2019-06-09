@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "rest_framework",
     "mptt",
     "widget_tweaks",
     # "crispy_forms",
@@ -137,3 +138,28 @@ LOGOUT_REDIRECT_URL="/"
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = "/media/"
+
+
+REST_FRAMEWORK = {
+"DEFAULT_RENDERER_CLASSES":(
+"rest_framework.renderers.JSONRenderer",
+"rest_framework.renderers.BrowsableAPIRenderer",
+),
+# "DEFAULT_PARSER_CLASSES":(
+# "rest_framework.parsers.JSONParser",
+# ),
+
+'DEFAULT_PERMISSION_CLASSES': (
+    'rest_framework.permissions.IsAuthenticated',
+),
+'DEFAULT_AUTHENTICATION_CLASSES': (
+    # 'rest_framework.authentication.TokenAuthentication',
+    'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    'rest_framework.authentication.SessionAuthentication',
+    'rest_framework.authentication.BasicAuthentication',
+),
+}
+
+JWT_AUTH = {
+    'JWT_ALLOW_REFRESH': True,
+}

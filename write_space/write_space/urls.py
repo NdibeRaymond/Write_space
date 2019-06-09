@@ -17,14 +17,19 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework_jwt.views import obtain_jwt_token,refresh_jwt_token
 from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", views.LandingPage.as_view(),name="landing_page"),
     path("posts/",include("posts.urls",namespace="posts")),
+    path("api/posts/",include("posts.api.urls",namespace="posts_api")),
     path("ckeditor/",include("ckeditor_uploader.urls")),
     path("accounts/",include("accounts.urls",namespace="accounts")),
+    path("api/token-auth/", obtain_jwt_token),
+    path("api/refresh_token/",refresh_jwt_token),
+    path("api/accounts/",include("accounts.api.urls",namespace="accounts_api")),
     path("accounts/",include("django.contrib.auth.urls")),
     path("about_me/",views.aboutView.as_view(),name="about_me"),
 
