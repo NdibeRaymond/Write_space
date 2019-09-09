@@ -10,4 +10,4 @@ to create a new post => curl -H "Authorization: JWT your access token goes here"
  -d "title=your post title&post_heading=your post heading&main_im
 age=C:image file path(note that there is still an issue here)&text=post text body" http:/
 
-/127.0.0.1:8000/api/posts/Ndibe_Raymond/new/
+/127.0.0.1:8000/api/posts/<username>/new/

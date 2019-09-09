@@ -3,6 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 # from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from accounts.models import userProfile
+from posts.models import Cartegory
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column
 GENDER = (
@@ -41,12 +42,8 @@ class signupForm(forms.ModelForm):
         #         Submit('submit', 'Sign in')
         #     )
 
-class  LoginForm(AuthenticationForm):
-    username=forms.CharField(widget=forms.TextInput(attrs = {"class":"form-control","placeholder":"input your registered username"}))
-    password=forms.CharField(widget=forms.PasswordInput(attrs = {"class":"form-control","placeholder":"input your password"}))
-
 class userGenderForm(forms.ModelForm):
-    gender=forms.ChoiceField(choices=GENDER)
+    gender=forms.ChoiceField(choices=GENDER,widget=forms.RadioSelect)
     class Meta():
         fields = ("gender",)
         model = userProfile
@@ -63,7 +60,17 @@ class userGenderForm(forms.ModelForm):
         #         Submit('submit', 'Sign in')
         #     )
 
+
+class  LoginForm(AuthenticationForm):
+    username=forms.CharField(widget=forms.TextInput(attrs = {"class":"form-control","placeholder":"input your registered username"}))
+    password=forms.CharField(widget=forms.PasswordInput(attrs = {"class":"form-control","placeholder":"input your password"}))
+
+
 class interestSelectForm(forms.ModelForm):
+    interests = forms.ModelMultipleChoiceField(
+    queryset = Cartegory.objects.all(),
+    widget = forms.CheckboxSelectMultiple,
+    )
     class Meta():
         model=userProfile
         fields=("interests",)
