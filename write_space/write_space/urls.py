@@ -25,7 +25,6 @@ urlpatterns = [
     path("", views.LandingPage.as_view(),name="landing_page"),
     path("posts/",include("posts.urls",namespace="posts")),
     path("api/posts/",include("posts.api.urls",namespace="posts_api")),
-    path("ckeditor/",include("ckeditor_uploader.urls")),
     path("accounts/",include("accounts.urls",namespace="accounts")),
     path("api/token-auth/", obtain_jwt_token),
     path("api/refresh_token/",refresh_jwt_token),
