@@ -1,18 +1,20 @@
 from django import forms
 from posts.models import Post, Comment
+from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
 class PostForm(forms.ModelForm):
 
     class Meta():
-        main_image=forms.ImageField(widget=forms.FileInput(attrs = {"class":"form-control"}))
+        # main_image=forms.HiddenInput()
         model=Post
-        fields=("main_image","title","post_heading","text","cartegory")
+        fields=("title","post_heading","text","cartegory")
         widgets={
         "title":forms.TextInput(attrs={"class":"form-control","placeholder":"title of your post"}),
         "post_heading":forms.TextInput(attrs={"class":"form-control","placeholder":"provide any suitable heading for your post"}),
-        "text":forms.Textarea(attrs={"class":"form-control","placeholder":"Create your post here"})
-
+        'text': SummernoteWidget()
         }
+
+# "text":forms.Textarea(attrs={"class":"form-control","placeholder":"Create your post here"}),
 
 class imageForm(forms.ModelForm):
     class Meta():

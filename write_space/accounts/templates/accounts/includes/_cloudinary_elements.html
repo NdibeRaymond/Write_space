@@ -1,0 +1,20 @@
+
+<div style="margin:2em">
+<div class="profile_pic_thumbnails">
+  {% if request.user.userprofile.profile_pic %}
+  <img class="img-thumbnail profile_pic_thumbnail" src="{{request.user.userprofile.profile_pic}}">
+  {%endif%}
+</div>
+<button name="profile_pic-clear" id="profile_pic-clear_id" onclick="deleteImageAsync(this)">Clear</button>
+<button class="btn btn-primary profile_pic" onclick="openUploadWidget(this)">Upload Profile Pic</button>
+</div>
+
+<div style="margin:2em">
+<div class="background_pic_thumbnails">
+  {% if request.user.userprofile.background_pic %}
+  <img class="img-thumbnail background_pic_thumbnail" src="{{request.user.userprofile.background_pic}}">
+  {%endif%}
+</div>
+<button name="background_pic-clear" id="background_pic-clear_id" onclick="deleteImageAsync(this)">Clear</button>
+<button class="btn btn-primary background_pic" onclick="openUploadWidget(this)">Upload background Pic</button>
+</div>

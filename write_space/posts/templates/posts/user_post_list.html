@@ -19,57 +19,48 @@
 {%if user_post%}
 
 
-<div class="container">
-  <div class="row">
-
-
-
-
-
+<div class="flex_post_container">
 
     {% for post in user_post %}
 
     {%if request.user == post.author or post.publish_date %}
-    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" id="all">
+    <div class="post flex_post" id="all">
       {%if post.main_image%}
       <div class=" banner_post_image">
-      <img src="{{post.main_image.url}}" class="img-responsive" alt="" id="all_img">
+      <img src="{{post.main_image}}" class="img-responsive" alt="" id="all_img">
     </div>
     {%endif%}
-    <div class=" banner_post_content">
+    <div class="all_post_content">
       <div>
-        <h1 class="text-center"><a href="{% url 'posts:user_post_detail' username=post.author.username pk=post.pk %}">{{post.title}}</a></h1>
+        <h1 class="all_post_content__title"><a class="all_post_content__title__a" href="{% url 'posts:user_post_detail' username=post.author.username pk=post.pk %}">{{post.title}}</a></h1>
       </div>
       <div>
-        <h4 class="text-muted">{{post.post_heading|truncatechars:64}}</h4>
+        <h4 class="text-muted all_post_content__body">{{post.post_heading|truncatechars:40}}</h4>
       </div>
       <div>
-        <h5><a href="{%url 'accounts:user_profile' pk=post.author.pk username=post.author.username %}">{{post.author}}</a></h5>
+        <h5 class="all_post_content_creator"><a class="all_post_content__creator__a" href="{%url 'accounts:user_profile' pk=post.author.pk username=post.author.username %}">{{post.author}}</a></h5>
 
-       {%if request.user == post.author %}
+        <p>
         {%if post.publish_date%}
-        <p>published on {{post.publish_date|date:"D M Y"}} by {{post.author}}</p>
+        published on {{post.publish_date|date:"d M, Y"}}
         {%else%}
-        <p>created on {{post.created_at|date:"D M Y"}} by {{post.author}}</p>
+        created on {{post.created_at|date:"d M, Y"}}
         {%endif%}
-        {%endif%}
+        </p>
+        <i class="fa fa-circle fa-xs" style="font-size:6px;display:inline-block;margin:0 1em 0 1em" aria-hidden="true"></i>
+        <i class="fa fa-comments-o" aria-hidden="true">&nbsp; {{post.clap.all.count}}</i>
+        <i class="fa fa-circle fa-xs" style="font-size:6px;display:inline-block;margin:0 1em 0 1em" aria-hidden="true"></i>
+        <i class="fa fa-comments-o" aria-hidden="true">&nbsp; {{post.comments.all.count}}</i>
       </div>
-     <p>Comments: {{post.comments.all.count}}</p>
     </div>
     </div>
     {%endif%}
     {%endfor%}
 
   </div>
-</div>
-
-
-
 
 {%else%}
-<div class="jumbotron">
-  <h3>No Post</h3>
-</div>
+{% include 'posts/includes/_no_posts.html' %}
 {%endif%}
 
 {%endblock%}

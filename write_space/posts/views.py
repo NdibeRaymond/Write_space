@@ -53,6 +53,7 @@ class PostDetailView(generic.DetailView):
         context["rec_history"] = recommendation_from_history
         context["rec_follow"] = recommendation_from_follow
         context["rec_interest"] = recommedation_from_user_interests
+        print(context["post"].main_image)
         return context
 
 
@@ -211,8 +212,25 @@ class postClapView(LoginRequiredMixin,generic.DetailView):
 
     def get_context_data(self,**kwargs):
         models.Post.objects.get(pk=self.kwargs.get("pk")).clap.add(self.request.user)
+
         context = super(postClapView,self).get_context_data(**kwargs)
         return context
+
+
+
+###########################################################
+##This view is used to unclap a post, like 'UNLIKE'
+###########################################################
+class postUnClapView(LoginRequiredMixin,generic.DetailView):
+    login_url="/accounts/login/"
+    success_url = reverse_lazy("posts:post_detail")
+    model=models.Post
+
+    def get_context_data(self,**kwargs):
+        models.Post.objects.get(pk=self.kwargs.get("pk")).clap.remove(self.request.user)
+        context = super(postUnClapView,self).get_context_data(**kwargs)
+        return context
+
 
 
 
@@ -236,7 +254,7 @@ class cartegoryView(generic.ListView):
     def get_context_data(self,**kwargs):
         posts = models.Post.objects.all()
         try:
-            cartegory_posts=posts.filter(cartegory=models.Cartegory.objects.get(name__exact=self.kwargs.get("name")))
+            cartegory_posts=posts.filter(cartegory=models.Cartegory.objects.get(name__exact=self.kwargs.get("name")),publish_date__lte=timezone.now())
         except:
             cartegory_posts = []
         context = super(cartegoryView,self).get_context_data(**kwargs)
@@ -286,21 +304,21 @@ def leave_cartegory_view(request,**kwargs):
 
 @login_required
 def add_comment_to_post(request,pk):
-    post=get_object_or_404(models.Post,pk=pk)
     if request.method =="POST":
+        print(request.POST)
+        post=get_object_or_404(models.Post,pk=pk)
         form=CommentForm(request.POST)
         if form.is_valid():
             post_comment=form.save(commit=False)
 
             post_comment.author = request.user
-            post_comment.text = request.POST["text"]
+            post_comment.text = request.POST["comment"]
             post_comment.post  = post
             post_comment.save()
 
             return redirect("posts:post_detail",pk=post.pk)
     else:
-        form=CommentForm()
-        return render(request,"posts/comment_form.html",{"form":form})
+        return redirect("posts:post_detail",pk=post.pk)
 
 
 @login_required

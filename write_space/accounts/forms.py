@@ -4,8 +4,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django import forms
 from accounts.models import userProfile
 from posts.models import Cartegory
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column
+# from crispy_forms.helper import FormHelper
+# from crispy_forms.layout import Layout, Submit, Row, Column
 GENDER = (
     ('', '-------'),
     ('M', 'Male'),
