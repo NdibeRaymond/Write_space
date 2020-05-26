@@ -7,124 +7,141 @@
  <br>
  <br>
  <br>
- <div class="container">
+ <div class="flex_featured_post_container">
 
    <!-- featured posts starts here -->
+   <div style="width:100%">
    <h1 class="text-center">Featured Posts</h1>
-   <div class="row">
-     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 post banner_post" id="featured">
+   </div>
+       <div class="post flex_featured_post--0" id="featured">
        {%if most_popular_0.main_image%}
-       <div class=" banner_post_image" >
-         <img src="{{most_popular_0.main_image.url}}" class="img-responsive" alt="" id="featured_img">
+       <div class="banner_post_image">
+         <img src="{{most_popular_0.main_image}}" class="img-responsive" alt="" id="featured_img">
        </div>
        {%endif%}
-       <div class=" banner_post_content">
+       <div class="banner_post_content">
          <div>
-           <h2 class="text-center"><a href="{% url 'posts:post_detail' pk=most_popular_0.pk %}">{{most_popular_0.title}}</a></h2>
+           <h2 class="banner_post_content__title"><a class="banner_post_content__title__a" href="{% url 'posts:post_detail' pk=most_popular_0.pk %}">{{most_popular_0.title}}</a></h2>
          </div>
          <div>
-           <h4 class="text-muted">{{most_popular_0.post_heading|truncatechars:64}}</h4>
+           <h4 class="text-muted banner_post_content__body">{{most_popular_0.post_heading|truncatechars:64}}</h4>
          </div>
          <div>
-         <h5><a href="{%url 'accounts:user_profile' pk=most_popular_0.author.pk username=most_popular_0.author.username %}">{{most_popular_0.author}}</a></h5>
-         <p>published on {{most_popular_0.publish_date|date:"D M Y"}}</p>
+         <h5 class="banner_post_content__creator"><a class="banner_post_content__creator__a" href="{%url 'accounts:user_profile' pk=most_popular_0.author.pk username=most_popular_0.author.username %}">{{most_popular_0.author}}</a> in {{most_popular_0.cartegory}}</h5>
+         <p>{{most_popular_0.publish_date|date:"d M, Y"}}
+           <i class="fa fa-circle fa-xs" style="font-size:10px;display:inline-block;margin:0 1.2em 0 1.2em" aria-hidden="true"></i>
+           <i class="black fa fa-thumbs-o-up fa-lg" aria-hidden="true">&nbsp; {{most_popular_0.clap.all.count}}</i>
+           <i class="fa fa-circle fa-xs" style="font-size:10px;display:inline-block;margin:0 1.2em 0 1.2em" aria-hidden="true"></i>
+           <i class="fa fa-comments-o fa-lg" aria-hidden="true">&nbsp; {{most_popular_0.comments.all.count}}</i>
+         </p>
        </div>
-        <p>Comments: {{most_popular_0.comments.all.count}}</p>
        </div>
-     </div>
+       </div>
 
 
-       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 post" id="featured">
+       <div class="post flex_featured_post--0" id="featured">
          {%if most_popular_1.main_image%}
          <div class=" banner_post_image">
-         <img src="{{most_popular_1.main_image.url}}" class="img-responsive" alt=""  id="featured_img">
+         <img src="{{most_popular_1.main_image}}" class="img-responsive" alt=""  id="featured_img">
        </div>
         {%endif%}
        <div class=" banner_post_content">
          <div>
-            <h2 class="text-center"><a href="{% url 'posts:post_detail' pk=most_popular_1.pk %}">{{most_popular_1.title}}</a></h2>
+            <h2 class="banner_post_content__title"><a class="banner_post_content__title__a" href="{% url 'posts:post_detail' pk=most_popular_1.pk %}">{{most_popular_1.title}}</a></h2>
          </div>
          <div>
-           <h4 class="text-muted">{{most_popular_1.post_heading|truncatechars:64}}</h4>
+           <h4 class="text-muted banner_post_content__body">{{most_popular_1.post_heading|truncatechars:64}}</h4>
          </div>
          <div>
-           <h5><a href="{%url 'accounts:user_profile' pk=most_popular_1.author.pk username=most_popular_1.author.username %}">{{most_popular_1.author}}</a></h5>
-           <p>published on {{most_popular_1.publish_date|date:"D M Y"}}</p>
+           <h5  class="banner_post_content__creator"><a class="banner_post_content__creator__a" href="{%url 'accounts:user_profile' pk=most_popular_1.author.pk username=most_popular_1.author.username %}">{{most_popular_1.author}}</a> in {{most_popular_1.cartegory}}</h5>
+           <p>{{most_popular_1.publish_date|date:"d M, Y"}}
+             <i class="fa fa-circle fa-xs" style="font-size:10px;display:inline-block;margin:0 1.2em 0 1.2em" aria-hidden="true"></i>
+             <i class="black fa fa-thumbs-o-up fa-lg" aria-hidden="true">&nbsp; {{most_popular_1.clap.all.count}}</i>
+             <i class="fa fa-circle fa-xs" style="font-size:10px;display:inline-block;margin:0 1.2em 0 1.2em" aria-hidden="true"></i>
+             <i class="fa fa-comments-o fa-lg" aria-hidden="true">&nbsp; {{most_popular_1.comments.all.count}}</i>
+           </p>
          </div>
-         <p>Comments: {{most_popular_1.comments.all.count}}</p>
+       </div>
        </div>
 
 
-       </div>
-
-       <div class="row">
-         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" id="featured1">
+          <div class="post flex_featured_post--1" id="featured1">
            {%if most_popular_2.main_image%}
            <div class=" banner_post_image" >
-           <img src="{{most_popular_2.main_image.url}}" class="img-responsive" alt=""  id="featured_img1">
+           <img src="{{most_popular_2.main_image}}" class="img-responsive" alt=""  id="featured_img1">
          </div>
           {%endif%}
          <div class=" banner_post_content">
            <div>
-              <h2 class="text-center"><a href="{% url 'posts:post_detail' pk=most_popular_2.pk %}">{{most_popular_2.title}}</a></h2>
+              <h2 class="banner_post_content__title"><a class="banner_post_content__title__a" href="{% url 'posts:post_detail' pk=most_popular_2.pk %}">{{most_popular_2.title}}</a></h2>
            </div>
            <div>
-             <h4 class="text-muted">{{most_popular_2.post_heading|truncatechars:64}}</h4>
+             <h4 class="text-muted banner_post_content__body">{{most_popular_2.post_heading|truncatechars:64}}</h4>
            </div>
            <div>
-             <h5><a href="{%url 'accounts:user_profile' pk=most_popular_2.author.pk username=most_popular_2.author.username %}">{{most_popular_2.author}}</a></h5>
-             <p>published on {{most_popular_2.publish_date|date:"D M Y"}}</p>
+             <h5 class="banner_post_content__creator"><a class="banner_post_content__creator__a" href="{%url 'accounts:user_profile' pk=most_popular_2.author.pk username=most_popular_2.author.username %}">{{most_popular_2.author}}</a> in {{most_popular_2.cartegory}}</h5>
+             <p>{{most_popular_2.publish_date|date:"d M, Y"}}
+               <i class="fa fa-circle fa-xs" style="font-size:10px;display:inline-block;margin:0 1.2em 0 1.2em" aria-hidden="true"></i>
+               <i class="black fa fa-thumbs-o-up fa-lg" aria-hidden="true">&nbsp; {{most_popular_2.clap.all.count}}</i>
+               <i class="fa fa-circle fa-xs" style="font-size:10px;display:inline-block;margin:0 1.2em 0 1.2em" aria-hidden="true"></i>
+               <i class="fa fa-comments-o fa-lg" aria-hidden="true">&nbsp; {{most_popular_2.comments.all.count}}</i>
+             </p>
            </div>
-           <p>Comments: {{most_popular_2.comments.all.count}}</p>
          </div>
          </div>
 
 
-         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post"  id="featured1">
+           <div class="post flex_featured_post--1" id="featured1">
            {%if most_popular_3.main_image%}
            <div class=" banner_post_image" >
-           <img src="{{most_popular_3.main_image.url}}" class="img-responsive" alt=""  id="featured_img1">
+           <img src="{{most_popular_3.main_image}}" class="img-responsive" alt=""  id="featured_img1">
          </div>
           {%endif%}
          <div class=" banner_post_content">
            <div>
-              <h2 class="text-center"><a href="{% url 'posts:post_detail' pk=most_popular_3.pk %}">{{most_popular_3.title}}</a></h2>
+              <h2 class="banner_post_content__title"><a class="banner_post_content__title__a" href="{% url 'posts:post_detail' pk=most_popular_3.pk %}">{{most_popular_3.title}}</a></h2>
            </div>
            <div>
-             <h4 class="text-muted">{{most_popular_3.post_heading|truncatechars:64}}</h4>
+             <h4 class="text-muted banner_post_content__body">{{most_popular_3.post_heading|truncatechars:64}}</h4>
            </div>
            <div>
-             <h5><a href="{%url 'accounts:user_profile' pk=most_popular_3.author.pk username=most_popular_3.author.username %}">{{most_popular_3.author}}</a></h5>
-             <p>published on {{most_popular_3.publish_date|date:"D M Y"}}</p>
+             <h5 class="banner_post_content__creator"><a class="banner_post_content__creator__a" href="{%url 'accounts:user_profile' pk=most_popular_3.author.pk username=most_popular_3.author.username %}">{{most_popular_3.author}}</a> in {{most_popular_3.cartegory}}</h5>
+             <p>{{most_popular_3.publish_date|date:"d M, Y"}}
+               <i class="fa fa-circle fa-xs" style="font-size:10px;display:inline-block;margin:0 1.2em 0 1.2em" aria-hidden="true"></i>
+               <i class="black fa fa-thumbs-o-up fa-lg" aria-hidden="true">&nbsp; {{most_popular_3.clap.all.count}}</i>
+               <i class="fa fa-circle fa-xs" style="font-size:10px;display:inline-block;margin:0 1.2em 0 1.2em" aria-hidden="true"></i>
+               <i class="fa fa-comments-o fa-lg" aria-hidden="true">&nbsp; {{most_popular_3.comments.all.count}}</i>
+             </p>
            </div>
-           <p>Comments: {{most_popular_3.comments.all.count}}</p>
          </div>
          </div>
 
 
-         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" id="featured1">
+           <div class="post flex_featured_post--1" id="featured1">
            {%if most_popular_4.main_image%}
            <div class=" banner_post_image" >
-           <img src="{{most_popular_4.main_image.url}}" class="img-responsive" alt="" id="featured_img1">
+           <img src="{{most_popular_4.main_image}}" class="img-responsive" alt="" id="featured_img1">
          </div>
          {%endif%}
          <div class=" banner_post_content">
            <div>
-             <h2 class="text-center"><a href="{% url 'posts:post_detail' pk=most_popular_4.pk %}">{{most_popular_4.title}}</a></h2>
+             <h2 class="banner_post_content__title"><a class="banner_post_content__title__a" href="{% url 'posts:post_detail' pk=most_popular_4.pk %}">{{most_popular_4.title}}</a></h2>
            </div>
            <div>
-             <h4 class="text-muted">{{most_popular_4.post_heading|truncatechars:64}}</h4>
+             <h4 class="text-muted banner_post_content__body">{{most_popular_4.post_heading|truncatechars:64}}</h4>
            </div>
            <div>
-             <h5><a href="{%url 'accounts:user_profile' pk=most_popular_4.author.pk username=most_popular_4.author.username %}">{{most_popular_4.author}}</a></h5>
-             <p>published on {{most_popular_4.publish_date|date:"D M Y"}}</p>
+             <h5 class="banner_post_content__creator"><a class="banner_post_content__creator__a" href="{%url 'accounts:user_profile' pk=most_popular_4.author.pk username=most_popular_4.author.username %}">{{most_popular_4.author}}</a>  in {{most_popular_4.cartegory}}</h5>
+             <p>{{most_popular_4.publish_date|date:"d M, Y"}}
+               <i class="fa fa-circle fa-xs" style="font-size:10px;display:inline-block;margin:0 1.2em 0 1.2em" aria-hidden="true"></i>
+               <i class="black fa fa-thumbs-o-up fa-lg" aria-hidden="true">&nbsp; {{most_popular_4.clap.all.count}}</i>
+               <i class="fa fa-circle fa-xs" style="font-size:10px;display:inline-block;margin:0 1.2em 0 1.2em" aria-hidden="true"></i>
+               <i class="fa fa-comments-o fa-lg" aria-hidden="true">&nbsp; {{most_popular_4.comments.all.count}}</i>
+             </p>
            </div>
-          <p>Comments: {{most_popular_4.comments.all.count}}</p>
          </div>
          </div>
-       </div>
      </div>
-   </div>
    <!-- featured posts ends here -->
 
  <hr>
@@ -143,37 +160,37 @@
 </div>
  <hr>
 
-   <div class="container">
-     <h1 class="text-center">All Posts</h1>
-   <div class="row">
+   <div class="flex_post_container">
+     <div style="width:100%">
+       <h1 class="text-center">All Posts</h1>
+    </div>
      {% for post in all_posts %}
-     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" id="all">
+       <div class="post flex_post" id="all">
        {%if post.main_image%}
-       <div class=" banner_post_image" >
-       <img src={{post.main_image.url}} alt="" class="img-responsive" id="all_img">
+       <div class="banner_post_image" >
+       <img src={{post.main_image}} alt="" class="img-responsive" id="all_img">
      </div>
      {%endif%}
-     <div class=" banner_post_content">
+     <div class="all_post_content">
        <div>
-         <h2 class="text-center"><a href="{% url 'posts:post_detail' pk=post.pk %}">{{post.title}}</a></h2>
+         <h2 class="all_post_content__title"><a class="all_post_content__title__a" href="{% url 'posts:post_detail' pk=post.pk %}">{{post.title}}</a></h2>
        </div>
        <div>
-         <h4 class="text-muted">{{post.post_heading|truncatechars:64}}</h4>
+         <h4 class="text-muted all_post_content__body">{{post.post_heading|truncatechars:40}}</h4>
        </div>
        <div>
-         <h5><a href="{%url 'accounts:user_profile' pk=post.author.pk username=post.author.username %}">{{post.author}}</a></h5>
-         <p>published on {{post.publish_date|date:"D M Y"}}</p>
+         <h5 class="all_post_content_creator"><a class="all_post_content__creator__a" href="{%url 'accounts:user_profile' pk=post.author.pk username=post.author.username %}">{{post.author}}</a> in {{post.cartegory}}</h5>
+         <p>{{post.publish_date|date:"d M, Y"}}
+           <i class="fa fa-circle fa-xs" style="font-size:6px;display:inline-block;margin:0 1em 0 1em" aria-hidden="true"></i>
+           <i class="black fa fa-thumbs-o-up" aria-hidden="true">&nbsp; {{post.clap.all.count}}</i>
+           <i class="fa fa-circle fa-xs" style="font-size:6px;display:inline-block;margin:0 1em 0 1em" aria-hidden="true"></i>
+           <i class="fa fa-comments-o" aria-hidden="true">&nbsp; {{post.comments.all.count}}</i></p>
        </div>
-        <p>Comments: {{post.comments.all.count}}</p>
      </div>
      </div>
      {%empty%}
-     <div class="jumbotron">
-       <h3>No post yet. click on "New post" to create a post</h3>
-     </div>
+     {% include 'posts/includes/_no_posts.html' %}
      {% endfor %}
-   </div>
-
    </div>
 
 {% endblock %}

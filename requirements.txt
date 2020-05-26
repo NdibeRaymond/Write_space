@@ -5,6 +5,7 @@ bcrypt==3.1.6
 certifi==2018.11.29
 cffi==1.11.5
 chardet==3.0.4
+cloudinary==1.20.0
 construct==2.5.3
 decorator==4.4.0
 defusedxml==0.6.0
@@ -14,6 +15,7 @@ django-bootstrap3==11.0.0
 django-braces==1.13.0
 django-ckeditor==5.7.0
 django-compressor==2.3
+django-environ==0.4.5
 django-extra-views==0.11.0
 django-filter==2.1.0
 django-js-asset==1.2.2
@@ -21,6 +23,7 @@ django-markdown-deux==1.0.5
 django-mptt==0.10.0
 django-pagedown==1.0.6
 django-phonenumber-field==2.0.1
+django-summernote==0.8.11.6
 django-tables2==1.21.2
 django-treebeard==4.3
 django-widget-tweaks==1.4.3
@@ -45,6 +48,7 @@ pycparser==2.19
 PyJWT==1.7.1
 python-dateutil==2.7.5
 pytz==2018.9
+rcssmin==1.0.6
 requests==2.21.0
 rjsmin==1.1.0
 simplejson==3.16.0

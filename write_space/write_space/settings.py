@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,7 +32,7 @@ SECRET_KEY = '$7-2w&_j^(fs7j&&@*^jb&0+_o*cel7lx1ub92tvw8%im#xn=i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -48,9 +52,20 @@ INSTALLED_APPS = [
     # "ckeditor_uploader",
     "accounts",
     "posts",
+    "django_summernote",
+    "cloudinary",
 ]
 # CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # CKEDITOR_UPLOAD_PATH = "uploads/"
+import cloudinary
+
+cloudinary.config(
+cloud_name = env('CLOUD_NAME'),
+api_key = env('API_KEY'),
+api_secret = env('API_SECRET')
+)
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -162,4 +177,28 @@ REST_FRAMEWORK = {
 
 JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
+}
+
+SUMMERNOTE_CONFIG = {
+
+ # You can put custom Summernote settings
+    'summernote': {
+        # Change editor size
+        'width': '100%',
+        'height': '480',
+
+        # Toolbar customization
+        # https://summernote.org/deep-dive/#custom-toolbar-popover
+        'toolbar': [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['emoji','link', 'picture', 'video']]
+        ]
+    },
+"css":("/static/write_space/css/summernote_plugin.css",),
+"js":("/static/write_space/js/summernote_plugin.js",)
 }

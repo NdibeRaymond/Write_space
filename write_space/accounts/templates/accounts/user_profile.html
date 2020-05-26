@@ -4,28 +4,19 @@
 {% block content%}
 
 {%if user.userprofile.background_pic%}
-<div class=" container-fluid" id="profile_header" style="background-image: url({{user.userprofile.background_pic.url}});
+<div class=" container" id="profile_header" style="background-image: url({{user.userprofile.background_pic}});
 height: 100%;background-position: center;background-repeat: no-repeat;
-background-size: cover;z-index:-10;">
-<!-- filter: blur(8px);
--webkit-filter: blur(8px); -->
+background-size: cover;filter:blur(8px);-webkit-filter:blur(8px)">
 
 {%else%}
-<div class="container-fluid" id="profile_header">
+<div class="container no_background_pic" id="profile_header">
 {%endif%}
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<div class="" >
-
-
+</div>
+<div class="profile">
 
   {%if request.user == user %}
   <div class="text-muted" id="upload_cover_photo">
-   <a href="{%url 'accounts:change_pic' username=user.username pk=user.pk %}" class="no_underline" role="button">
+   <a href="{%url 'accounts:change_pic' username=user.username pk=user.pk %}" class="no_underline user_profile_info" role="button">
      <span class="">+ Upload Cover Photo</span>
      <i class="fa fa-picture-o" aria-hidden="true"></i>
    </a>
@@ -40,15 +31,15 @@ background-size: cover;z-index:-10;">
         {%endif%}
   <div style="margin:10px;">
   {%if user.userprofile.profile_pic%}
-  <img src="{{user.userprofile.profile_pic.url}}" alt="" class="" id="profile_pic">
+  <img src="{{user.userprofile.profile_pic}}" alt="" class="" id="profile_pic">
   {%else%}
 
   {%endif%}
 
   </div>
-   <h2>{{user.username}}</h2>
+   <h2 class="user_profile_info">{{user.username}}</h2>
 
-    <span class="">
+    <span class="user_profile_info">
       <span>{{user.userprofile.date_joined|date:"D M Y"}}</span>
     </span>
 
@@ -77,9 +68,6 @@ background-size: cover;z-index:-10;">
    </div>
 
  </div>
-
-
-</div>
 </div>
 
 
@@ -87,32 +75,32 @@ background-size: cover;z-index:-10;">
 
   <li>
     <a href="{%url 'posts:user_post_list' username=user.username %}" style="text-decoration:none;color:black;">
-      <span class="" style="margin-right:50px;margin-left:50px;">
+      <span class="">
         <div class="">{{user_posts.count}}</div>
         <div class="text-muted">Posts</div>
       </span>
     </a>
   </li>
   <li>
-    <span class="" style="margin-right:50px;margin-left:50px;">
+    <span class="">
       <div class="">{{posts_viewed.count}}</div>
       <div class="text-muted">Post viewed</div>
     </span>
   </li>
   <li>
-    <span class="" style="margin-right:50px;margin-left:50px;">
+    <span class="">
     <div class="">{{user_comments.count}}</div>
     <div class="text-muted">Comments</div>
   </span>
  </li>
   <li>
-    <span class="" style="margin-right:50px;margin-left:50px;">
+    <span class="">
       <div class="">{{user.userprofile.follower.count}}</div>
       <div class="text-muted">Followers</div>
     </span>
   </li>
   <li>
-  	<span class="" style="margin-right:50px;margin-left:50px;">
+  	<span class="">
       <div class="">{{following.count}}</div>
       <div class="text-muted">Following</div>
     </span>
@@ -151,7 +139,7 @@ background-size: cover;z-index:-10;">
 
 
 {%if request.user == user or user.userprofile.bio %}
-<div class="container-fluid">
+<div class="container">
   <span class=""><h4>About Me</h4></span>
   {%if request.user == user %}
   <a href="{%url 'accounts:bio' username=user.username pk=user.userprofile.pk %}"><button type="button" class="btn btn-default" style="float: right;">
@@ -170,7 +158,7 @@ background-size: cover;z-index:-10;">
 
 
 {%if request.user == user or user_posts %}
-<div class="container-fluid">
+<div class="" style="padding-right:15px; padding-left: 15px">
   <div class="">
     <span class=""><h4>Top Posts</h4></span>
     <a href="{%url 'posts:user_post_list' username=user.username %}">
@@ -193,7 +181,7 @@ background-size: cover;z-index:-10;">
   </div>
 </div>
 {%else%}
-<div class="container-fluid">
+<div class="container">
 <br>
 <br>
 <div class=" jumbotron text-center">
@@ -209,7 +197,7 @@ background-size: cover;z-index:-10;">
 {%endif%}
 
 
-<div class="interests">
+<div class="interests container">
   <div class="">
     <span class=""><h4>Interests</h4></span>
   </div>

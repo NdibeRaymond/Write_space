@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 from . import models
 from accounts import models
 import statistics
@@ -20,7 +21,7 @@ class recEngine():
             user = get_user_model().objects.get(username__exact=request.user.username)
         except:
             user = None
-        all_posts = models.Post.objects.all()
+        all_posts = models.Post.objects.all().filter(publish_date__lte=timezone.now())
         all_cartegories = models.Cartegory.objects.all()
 
         if query == "users":
@@ -113,7 +114,7 @@ class recEngine():
         user = recEngine.get_queryset(request,query = "user")
         all_posts = recEngine.get_queryset(request,query = "all_posts")
         posts_you_viewed = all_posts.filter(viewed=user)
-        
+
         cartegory_of_posts = []
         for each_post in posts_you_viewed:
             cartegory_of_posts.append(each_post.cartegory)

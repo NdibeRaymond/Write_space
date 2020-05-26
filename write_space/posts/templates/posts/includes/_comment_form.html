@@ -1,0 +1,5 @@
+    <form class="form-group" action="{% url 'posts:add_comment_to_post' pk=post.pk %}" method="POST">
+    {%csrf_token%}
+    <textarea class="form-control comment-text" name="comment" placeholder="write a comment ..."></textarea>
+    <button class="btn btn-success comment-publish-button display-none" type="submit">Publish</button>
+  </form>
