@@ -72,7 +72,7 @@ class Post(models.Model):
 
 class Cartegory(MPTTModel):
     name = models.CharField(max_length=50, unique=True)
-    newImage = models.URLField(null=True,blank=True)
+    image = models.URLField(null=True,blank=True)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children',db_index=True,on_delete = models.CASCADE)
     slug = models.SlugField()
 
