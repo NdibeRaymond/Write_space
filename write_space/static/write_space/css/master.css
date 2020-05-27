@@ -264,7 +264,12 @@ img,video,embed {
 }
 
 #post_text{
+  max-width: 100%;
   margin-top:50px;
+  font-size: 2rem;
+  line-height: 1.625;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 
@@ -326,7 +331,7 @@ div.content {
   flex-direction: column;
   align-items: center;
   background-color: white;
-  max-width: 1400px;
+  max-width: 850px;
   width: 80%;
   padding:2em;
   /* height: 1000px; */
