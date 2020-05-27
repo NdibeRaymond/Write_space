@@ -16,7 +16,7 @@
         <div class="post flex_post" id="all">
           {%if cartegory.image%}
           <div>
-             <img src="{{cartegory.image.url}}" alt="" width="100%" id="all_img">
+             <img src="{{cartegory.image}}" alt="" width="100%" id="all_img">
            </div>
            {%endif%}
           <a class="all_post_content__title__a" href="{%url 'posts:cartegory' name=cartegory.name %}">
