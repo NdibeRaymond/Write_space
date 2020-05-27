@@ -1,6 +1,7 @@
 writeSpaceEnv/
 __pycache__/
-
+db.sqlite3
 .env
-
+media/
+migrations/
 admin_static/
