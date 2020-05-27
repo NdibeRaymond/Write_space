@@ -72,7 +72,6 @@ class Post(models.Model):
 
 class Cartegory(MPTTModel):
     name = models.CharField(max_length=50, unique=True)
-    image = models.ImageField(upload_to= "images/cartegory_images/",blank = True)
     newImage = models.URLField(null=True,blank=True)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children',db_index=True,on_delete = models.CASCADE)
     slug = models.SlugField()
@@ -98,25 +97,6 @@ class Cartegory(MPTTModel):
         for i in range(len(ancestors)):
             slugs.append('/'.join(ancestors[:i+1]))
         return slugs
-
-    def save(self,*args,**kwargs):
-        print("save was called")
-        pathArr = self.image.url.split("/")
-        print(pathArr)
-        baseDir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        imageDir = os.path.join(os.path.join(os.path.join(os.path.join(baseDir,pathArr[1]),pathArr[2]),pathArr[3]),pathArr[4])
-        print(imageDir)
-        response = cloudinary.uploader.upload(imageDir,
-                      folder = "cartegory_images",
-                      overwrite = True,
-                      resource_type = "image")
-        if(response["secure_url"]):
-            self.newImage = response["secure_url"]
-
-            print("self.main_image was set",self.newImage)
-
-
-        super().save(*args,**kwargs)
 
 
 
