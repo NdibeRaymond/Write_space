@@ -17,6 +17,7 @@ urlpatterns = [
  path("<str:username>/saved/",views.savedListView.as_view(),name="view_saved"),
  path('<int:pk>/comment/',views.add_comment_to_post,name="add_comment_to_post"),
  path('<int:pk>/clap/',views.postClapView.as_view(),name="clap"),
+ path('<int:pk>/un_clap/',views.postUnClapView.as_view(),name="un_clap"),
  path('cartegory/<str:name>/',views.cartegoryView.as_view(),name="cartegory"),
  path('<int:pk>/publish/',views.post_publish,name="post_publish"),
  path('<int:pk>/unpublish/',views.post_unpublish,name="post_unpublish"),

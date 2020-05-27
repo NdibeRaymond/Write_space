@@ -1,0 +1,7 @@
+writeSpaceEnv/
+__pycache__/
+
+.env
+media/
+
+admin_static/

@@ -1,22 +1,17 @@
 {% extends "header_footer.html" %}
 {% load staticfiles %}
+{% load cloudinary %}
 
 {% block content %}
-<br>
-<br>
-<br>
-<br>
 
-<div class="container" style="height:100vh;">
-  <form enctype="multipart/form-data" method="post">
-    {%csrf_token%}
-
-    {{ form }}
-    <hr>
-    
-
-    <button type="submit" name="button" class="btn btn-primary">Done</button>
-    <a href="{% url 'accounts:user_profile' username=request.user.username pk=request.user.pk %}"><input type="button" name="" value="Cancel" class="btn btn-primary"></a>
+<div class="container change_profile_pic">
+  {% include 'accounts/includes/_cloudinary_elements.html' %}
+  <hr>
+  <form class="user_pic_form" enctype="multipart/form-data" method="post">
+      {%csrf_token%}
+      <button type="submit" name="button" class="btn btn-primary">Done</button>
+      <a href="{% url 'accounts:user_profile' username=request.user.username pk=request.user.pk %}">
+        <input type="button" name="" value="Cancel" class="btn btn-primary"></a>
   </form>
 
 </div>
@@ -24,5 +19,7 @@
 <br>
 <br>
 <br>
+
+
 
 {% endblock %}

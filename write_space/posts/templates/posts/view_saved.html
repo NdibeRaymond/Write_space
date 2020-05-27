@@ -10,33 +10,31 @@
 
 
 <div class="container">
-  <div class="row">
+  <div class="flex_post_container">
 
     {% for post in saved_posts %}
 
-
-    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" id="all">
-      {%if post.main_image%}
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-4 banner_post_image" >
-      <img src="{{post.main_image.url}}" class="img-responsive" alt="" id="all_img">
+    <div class="post flex_post" id="all">
+    {%if post.main_image%}
+    <div class="banner_post_image" >
+    <img src={{post.main_image}} alt="" class="img-responsive" id="all_img">
     </div>
     {%endif%}
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-8 banner_post_content">
-      <div>
-        <h1 class="text-center"><a href="{% url 'posts:user_post_detail' username=post.author.username pk=post.pk %}">{{post.title}}</a></h1>
-      </div>
-      <div>
-        <h4 class="text-muted">{{post.post_heading|safe|linebreaksbr}}</h4>
-      </div>
-      <div>
-        <h5><a href="{%url 'accounts:user_profile' pk=post.author.pk username=post.author.username %}">{{post.author}}</a></h5>
-
-        {%if post.publish_date%}
-        <p>{{post.publish_date|date:"D M Y"}}</p>
-        {%endif%}
-
-      </div>
-     <p>Comments: {{post.comments.all.count}}</p>
+    <div class="all_post_content">
+    <div>
+      <h2 class="all_post_content__title"><a class="all_post_content__title__a" href="{% url 'posts:post_detail' pk=post.pk %}">{{post.title}}</a></h2>
+    </div>
+    <div>
+      <h4 class="text-muted all_post_content__body">{{post.post_heading|truncatechars:40}}</h4>
+    </div>
+    <div>
+      <h5 class="all_post_content_creator"><a class="all_post_content__creator__a" href="{%url 'accounts:user_profile' pk=post.author.pk username=post.author.username %}">{{post.author}}</a> in {{post.cartegory}}</h5>
+      <p>{{post.publish_date|date:"d M, Y"}}
+        <i class="fa fa-circle fa-xs" style="font-size:6px;display:inline-block;margin:0 1em 0 1em" aria-hidden="true"></i>
+        <i class="black fa fa-thumbs-o-up" aria-hidden="true">&nbsp; {{post.clap.all.count}}</i>
+        <i class="fa fa-circle fa-xs" style="font-size:6px;display:inline-block;margin:0 1em 0 1em" aria-hidden="true"></i>
+        <i class="fa fa-comments-o" aria-hidden="true">&nbsp; {{post.comments.all.count}}</i></p>
+    </div>
     </div>
     </div>
     {%endfor%}
@@ -44,13 +42,8 @@
   </div>
 </div>
 
-
-
-
 {%else%}
-<div class="jumbotron">
-  <h3>No Post</h3>
-</div>
+{% include 'posts/includes/_no_posts.html' %}
 {%endif%}
 
 {%endblock%}

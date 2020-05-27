@@ -11,8 +11,8 @@ class userProfile(models.Model):
     #additional
 
     bio = models.CharField(max_length = 1000,blank = True)
-    profile_pic = models.ImageField(upload_to = "images/profile_pics/",blank = True)
-    background_pic = models.ImageField(upload_to = "images/background_pics/",blank = True)
+    profile_pic = models.URLField(blank=True,null=True)
+    background_pic = models.URLField(blank=True,null=True)
     date_joined = models.DateTimeField(auto_now=True)
     follower = models.ManyToManyField("self",symmetrical=False)
     saved_for_future = models.ManyToManyField(Post,blank=True,related_name="saved")

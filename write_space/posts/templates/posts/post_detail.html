@@ -1,74 +1,125 @@
 {%extends 'header_footer.html '%}
 {%load staticfiles%}
-
 {%block content%}
-<div class="" style="">
+<div class="post-detail">
 
-	<div class="container content">
-			<div class="">
-
-				<br>
-				<br>
-				<br>
-				<br>
+	<div class="content">
 				{% if post.publish_date%}
-				<div class="loader">
-					<div class="">
-						<h1 class="post-title text-center">{{post.title}}</h1>
+					<div class="post-detail-header">
+						<h1 class="post-title">{{post.title}}</h1>
+						<h2 class="text-muted banner_post_content__body">{{post.post_heading|safe|linebreaksbr}}</h2>
 
-						<h3 class="text-center text-muted">{{post.post_heading|safe|linebreaksbr}}</h3>
-						<div class="row text-center">
-							<div class="col-lg-1 col-md-1 col-sm-2 col-xs-3 ">
-								{%if post.author.userprofile.profile_pic%}
-							 <img src="{{post.author.userprofile.profile_pic.url}}" class="img-responsive avatar" alt="">
-							 {%endif%}
-							 <hr>
-							 <a href="{%url 'accounts:user_profile' pk=post.author.pk username=post.author.username %}"><h5 class="name">{{post.author}}</h5></a>
-							 <br>
-							 {%if request.user != post.author %}
-							 {%if not request.user.userprofile in post.author.userprofile.follower.all %}
-							 <a href="{%url 'accounts:follow' username=post.author.username pk=post.author.pk %}">
-							 <button type="button" class="btn btn-primary"><span class="">Follow</span>
-							 </button>
-							 </a>
-							 {%else%}
-							 <a href="{%url 'accounts:unfollow' username=post.author.username pk=post.author.pk %}">
-							 <button type="button" class="btn btn-primary"><span class="">Unfollow</span>
-							 </button>
-							 </a>
-							 {%endif%}
-							 {%endif%}
-							</div>
+						<div class="author">
+						<div class="author-details">
 
-						</div>
-						<div class="row">
-							<div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+						{%if post.author.userprofile.profile_pic%}
+					 <img src="{{post.author.userprofile.profile_pic}}" class="img-responsive avatar" alt="">
+					 {%endif%}
+					 <div style="padding-left:0.5em;padding-right:0.5em">
+						 <a class="banner_post_content__creator__a name" href="{%url 'accounts:user_profile' pk=post.author.pk username=post.author.username %}">
+				       {{post.author}}
+						 </a>
 
-							</div>
-						</div>
+						 {%if request.user != post.author %}
+						 {%if not request.user.userprofile in post.author.userprofile.follower.all %}
+						 <a href="{%url 'accounts:follow' username=post.author.username pk=post.author.pk %}">
+						 <button type="button" class="btn btn-primary"><span class="">Follow</span>
+						 </button>
+						 </a>
+						 {%else%}
+						 <a  href="{%url 'accounts:unfollow' username=post.author.username pk=post.author.pk %}">
+						 <button type="button" class="btn btn-primary"><span class="">Unfollow</span>
+						 </button>
+						 </a>
+						 {%endif%}
+						 {%endif%}
 
+					<p>{{post.publish_date|date:"d M, Y"}}</p>
+					  </div>
+					 </div>
+
+					 <div class="social">
+
+          <i class="black fa fa-share-alt" style="display:inline-block;margin:0 1.2em 0 1.2em" data-toggle="modal" data-target="#social-share" aria-hidden="true"></i>
+
+					 <!-- Modal -->
+				<div class="modal fade" id="social-share" tabindex="-1" role="dialog" aria-labelledby="share post" aria-hidden="true">
+				  <div class="modal-dialog modal-dialog-centered" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body" style="display:flex;flex-wrap:wrap;justify-content:space-between">
+								<button class="btn btn-light" data-sharer="twitter" data-url={{request.build_absolute_uri}} data-title="{{post.title}}">
+									<i class="black fa fa-twitter fa-lg" aria-hidden="true"></i>
+								</button>
+
+								<button class="btn btn-light" data-sharer="facebook" data-url={{request.build_absolute_uri}} data-title="{{post.title}}">
+									<i class="black fa fa-facebook fa-lg" aria-hidden="true"></i>
+								</button>
+
+								<button class="btn btn-light" data-sharer="linkedin" data-url={{request.build_absolute_uri}} data-title="{{post.title}}">
+									<i class="black fa fa-linkedin fa-lg" aria-hidden="true"></i>
+								</button>
+
+								<button class="btn btn-light" data-sharer="email" data-url={{request.build_absolute_uri}} data-title="{{post.title}}">
+									<i class="black fa fa-envelope fa-lg" aria-hidden="true"></i>
+								</button>
+
+								<button class="btn btn-light" data-sharer="whatsapp" data-web="true" data-url={{request.build_absolute_uri}} data-title="{{post.title}}">
+									<i class="black fa fa-whatsapp fa-lg" aria-hidden="true"></i>
+								</button>
+
+								<button class="btn btn-light" data-sharer="telegram" data-url={{request.build_absolute_uri}} data-title="{{post.title}}">
+									<i class="black fa fa-telegram fa-lg" aria-hidden="true"></i>
+								</button>
+
+								<button class="btn btn-light" data-sharer="hackernews" data-url={{request.build_absolute_uri}} data-title="{{post.title}}">
+									<i class="black fa fa-y-combinator fa-lg" aria-hidden="true"></i>
+								</button>
+
+								<button class="btn btn-light" data-sharer="reddit" data-url={{request.build_absolute_uri}} data-title="{{post.title}}">
+									<i class="black fa fa-reddit-alien fa-lg" aria-hidden="true"></i>
+								</button>
+
+				      </div>
+				    </div>
+				  </div>
+				</div>
+
+					 {%if post.author != request.user %}
+					 {%if not post in request.user.userprofile.saved_for_future.all %}
+					 <a href="{%url 'posts:save_for_future' pk=post.pk %}"><i class="black fa fa-bookmark-o fa-lg" aria-hidden="true"></i></a>
+					 {%else%}
+					 <a href="{%url 'posts:unsave' pk=post.pk %}"><i class="black fa fa-bookmark fa-lg" aria-hidden="true"></i></a>
+					 {%endif%}
+					 {%endif%}
+					 </div>
+					 </div>
+
+					 </div>
+
+					<div class="post-detail-text" id="post_text">
+						{{post.text|safe|linebreaksbr}}
 						<hr>
-						{%if post.author != request.user %}
-						{%if not post in request.user.userprofile.saved_for_future.all %}
-						<a href="{%url 'posts:save_for_future' pk=post.pk %}"><h3>Save</h3></a>
-						{%else%}
-						<a href="{%url 'posts:unsave' pk=post.pk %}"><h3>Unsave</h3></a>
-						{%endif%}
-						{%endif%}
-
-						<p>{{post.publish_date}}</p>
 					</div>
-					{%if post.main_image%}
-					<img src="{{post.main_image.url}}" class="img-responsive" id="detail_img" alt="">
-					{%endif%}
-
-					<br>
-					<div class="date postdate">
-						<span class="glyphicon glyphicon-eye-open">{{post.viewed.count}}</span>
+					<div class="date post-date">
+						<span><i class="black fa fa-eye fa-lg" style="display:inline-block;margin:0 0.5em 0 0" aria-hidden="true"></i>
+							 {{post.viewed.count}}</span>
 						{%if post.author == request.user %}
-						<span class="glyphicon glyphicon-thumbs-up">{{post.clap.count}}</span>
+						<span><i class="black fa fa-thumbs-up fa-lg" style="display:inline-block;margin:0 0.5em 0 1.2em" aria-hidden="true"></i>{{post.clap.count}}</span>
 						{%else%}
-						<a href="{%url 'posts:clap' pk=post.pk %}"><span class="glyphicon glyphicon-thumbs-up">{{post.clap.count}}</span></a>
+						{%if not request.user in post.clap.all %}
+						<a class="black" href="{%url 'posts:clap' pk=post.pk %}">
+								<span><i class="black fa fa-thumbs-o-up fa-lg" style="display:inline-block;margin:0 0.5em 0 1.2em" aria-hidden="true"></i>{{post.clap.count}}</span>
+						</a>
+						{%else%}
+						<a class="black" href="{%url 'posts:un_clap' pk=post.pk %}">
+								<span><i class="black fa fa-thumbs-up fa-lg" style="display:inline-block;margin:0 0.5em 0 1.2em" aria-hidden="true"></i>{{post.clap.count}}</span>
+						</a>
+						{%endif%}
 						{%endif%}
 
 						{%if post.author == request.user%}
@@ -77,23 +128,17 @@
 						<a class="btn btn-primary" href="{% url 'posts:delete_post' username=post.author.username pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
 						{%endif%}
 					</div>
-					<div class="" id="post_text">
-						<h4>{{post.text|safe|linebreaksbr}}</h4>
-						<hr>
-					</div>
-
-					</div>
-					</div>
-		 </div>
+		</div>
 			 <br>
 			 <br>
 
-			 <div class="container">
-				<div class="row">
+			 <div class="flex_featured_post_container">
+				 <div style="width:100%">
 					<h3 class="text-center">Recommended Read</h3>
+				</div>
 
 						{%if rec_history%}
-					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" id="featured1">
+					<div class="flex_featured_post--1 post" id="featured1">
 					 {%if rec_history.main_image%}
 					 <div class=" banner_post_image" >
 					 <img src="{{rec_history.main_image.url}}" class="img-responsive" alt="" id="featured_img1">
@@ -101,22 +146,26 @@
 				 {%endif%}
 				 <div class=" banner_post_content">
 					 <div>
-						 <h2 class="text-center"><a href="{% url 'posts:post_detail' pk=rec_history.pk %}">{{rec_history.title}}</a></h2>
+						 <h2 class="banner_post_content__title"><a class="banner_post_content__title__a" href="{% url 'posts:post_detail' pk=rec_history.pk %}">{{rec_history.title}}</a></h2>
 					 </div>
 					 <div>
-						 <h4 class="text-muted">{{rec_history.post_heading|truncatechars:64}}</h4>
+						 <h4 class="text-muted banner_post_content__body">{{rec_history.post_heading|truncatechars:64}}</h4>
 					 </div>
 					 <div>
-						 <h5><a href="{%url 'accounts:user_profile' pk=rec_history.author.pk username=rec_history.author.username %}">{{rec_history.author}}</a></h5>
-						 <p>published on {{rec_history.publish_date|date:"D M Y"}}</p>
+						 <h5 class="banner_post_content__creator"><a class="banner_post_content__creator__a" href="{%url 'accounts:user_profile' pk=rec_history.author.pk username=rec_history.author.username %}">{{rec_history.author}}</a> in {{rec_history.cartegory}}</h5>
+						 <p>{{rec_history.publish_date|date:"d M, Y"}}
+							 <i class="fa fa-circle fa-xs" style="font-size:10px;display:inline-block;margin:0 1.2em 0 1.2em" aria-hidden="true"></i>
+               <i class="fa fa-comments-o fa-lg" aria-hidden="true">&nbsp; {{rec_history.clap.all.count}}</i>
+               <i class="fa fa-circle fa-xs" style="font-size:10px;display:inline-block;margin:0 1.2em 0 1.2em" aria-hidden="true"></i>
+               <i class="fa fa-comments-o fa-lg" aria-hidden="true">&nbsp; {{rec_history.comments.all.count}}</i>
+						 </p>
 					 </div>
-					<p>Comments: {{rec_history.comments.all.count}}</p>
 				 </div>
 				 </div>
 				 {%endif%}
 
 				 {%if rec_follow%}
-				 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" id="featured1">
+				 <div class="flex_featured_post--1 post" id="featured1">
 					 {%if rec_follow.main_image%}
 					 <div class=" banner_post_image" >
 					 <img src="{{rec_follow.main_image.url}}" class="img-responsive" alt="" id="featured_img1">
@@ -124,22 +173,26 @@
 				 {%endif%}
 				 <div class=" banner_post_content">
 					 <div>
-						 <h2 class="text-center"><a href="{% url 'posts:post_detail' pk=rec_follow.pk %}">{{rec_follow.title}}</a></h2>
+						 <h2 class="banner_post_content__title"><a class="banner_post_content__title__a" href="{% url 'posts:post_detail' pk=rec_follow.pk %}">{{rec_follow.title}}</a></h2>
 					 </div>
 					 <div>
-						 <h4 class="text-muted">{{rec_follow.post_heading|truncatechars:64}}</h4>
+						 <h4 class="text-muted banner_post_content__body">{{rec_follow.post_heading|truncatechars:64}}</h4>
 					 </div>
 					 <div>
-						 <h5><a href="{%url 'accounts:user_profile' pk=rec_follow.author.pk username=rec_follow.author.username %}">{{rec_follow.author}}</a></h5>
-						 <p>published on {{rec_follow.publish_date|date:"D M Y"}}</p>
+						 <h5 class="banner_post_content__creator"><a class="banner_post_content__creator__a" href="{%url 'accounts:user_profile' pk=rec_follow.author.pk username=rec_follow.author.username %}">{{rec_follow.author}}</a> in {{rec_follow.cartegory}}</h5>
+						 <p>{{rec_follow.publish_date|date:"d M, Y"}}
+							 <i class="fa fa-circle fa-xs" style="font-size:10px;display:inline-block;margin:0 1.2em 0 1.2em" aria-hidden="true"></i>
+               <i class="fa fa-comments-o fa-lg" aria-hidden="true">&nbsp; {{rec_follow.clap.all.count}}</i>
+               <i class="fa fa-circle fa-xs" style="font-size:10px;display:inline-block;margin:0 1.2em 0 1.2em" aria-hidden="true"></i>
+               <i class="fa fa-comments-o fa-lg" aria-hidden="true">&nbsp; {{rec_follow.comments.all.count}}</i>
+						 </p>
 					 </div>
-					<p>Comments: {{rec_follow.comments.all.count}}</p>
 				 </div>
 				 </div>
 				 {%endif%}
 
 				 {%if rec_interest%}
-				 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" id="featured1">
+				 <div class="flex_featured_post--1 post" id="featured1">
 					 {%if rec_interest.main_image%}
 					 <div class=" banner_post_image" >
 					 <img src="{{rec_interest.main_image.url}}" class="img-responsive" alt="" id="featured_img1">
@@ -147,67 +200,62 @@
 				 {%endif%}
 				 <div class=" banner_post_content">
 					 <div>
-						 <h2 class="text-center"><a href="{% url 'posts:post_detail' pk=rec_interest.pk %}">{{rec_interest.title}}</a></h2>
+						 <h2 class="banner_post_content__title"><a class="banner_post_content__title__a" href="{% url 'posts:post_detail' pk=rec_interest.pk %}">{{rec_interest.title}}</a></h2>
 					 </div>
 					 <div>
-						 <h4 class="text-muted">{{rec_interest.post_heading|truncatechars:64}}</h4>
+						 <h4 class="text-muted banner_post_content__body">{{rec_interest.post_heading|truncatechars:64}}</h4>
 					 </div>
 					 <div>
-						 <h5><a href="{%url 'accounts:user_profile' pk=rec_interest.author.pk username=rec_interest.author.username %}">{{rec_interest.author}}</a></h5>
-						 <p>published on {{rec_interest.publish_date|date:"D M Y"}}</p>
+						 <h5 class="banner_post_content__creator"><a class="banner_post_content__creator__a" href="{%url 'accounts:user_profile' pk=rec_interest.author.pk username=rec_interest.author.username %}">{{rec_interest.author}}</a> in {{rec_interest.cartegory}}</h5>
+						 <p>{{rec_interest.publish_date|date:"d M, Y"}}
+							 <i class="fa fa-circle fa-xs" style="font-size:10px;display:inline-block;margin:0 1.2em 0 1.2em" aria-hidden="true"></i>
+               <i class="fa fa-comments-o fa-lg" aria-hidden="true">&nbsp; {{rec_interest.clap.all.count}}</i>
+               <i class="fa fa-circle fa-xs" style="font-size:10px;display:inline-block;margin:0 1.2em 0 1.2em" aria-hidden="true"></i>
+               <i class="fa fa-comments-o fa-lg" aria-hidden="true">&nbsp; {{rec_interest.comments.all.count}}</i>
+						 </p>
 					 </div>
-					<p>Comments: {{rec_interest.comments.all.count}}</p>
 				 </div>
 				 </div>
 				 {%endif%}
-
-				</div>
 			 </div>
 
 		 <br>
 		 <br>
-		 <div class="container">
-			<a class="btn btn-primary btn-comment" href="{% url 'posts:add_comment_to_post' pk=post.pk %}">Add Comment</a>
-		 </div>
+
 		 <br>
 
-		 <div class="container comment">
-			 <table border="0">
+		 <div class="comments">
+       <h2>Comments</h2>
+         <div class="comment-collapsed comment-form">
 
+					 {% if request.user.is_authenticated %}
+					 <div class="comment_meta">
+					 {%if request.user.userprofile.profile_pic%}
+					 <img src="{{request.user.userprofile.profile_pic}}"  class="avatar" alt="">
+						{%endif%}
+					<div>
+					<a class="black comment_meta__a display-none" href="{%url 'accounts:user_profile' pk=request.user.userprofile.pk username=request.user.username %}">{{request.user.username}}</a>
+					</div>
+					</div>
+					{% endif %}
+					  {% include 'posts/includes/_comment_form.html' %}
+					</div>
 
 				 {% for comment in post.comments.all %}
 
-
-				<tr>
-					<td>
-						<br>
-
 					 <div class="comment">
+						 <div class="comment_meta">
 						 {%if comment.author.userprofile.profile_pic%}
-						 <img src="{{comment.author.userprofile.profile_pic.url}}"  class="avatar" alt="">
+						 <img src="{{comment.author.userprofile.profile_pic}}"  class="avatar" alt="">
               {%endif%}
-						<a href="{%url 'accounts:user_profile' pk=comment.author.pk username=comment.author.username %}"><p class="mini_pro">{{comment.author}}</p></a>
-						<p class="mini_pro">{{comment.created_at}}</p>
-					 </div>
-					 <br>
-
-				 </td>
-					<td
-					<br>
-
+						<div>
+						<a class="black comment_meta__a" href="{%url 'accounts:user_profile' pk=comment.author.pk username=comment.author.username %}">{{comment.author}}</a>
+						<p class="text-muted">{{comment.created_at}}</p>
+						</div>
+						</div>
 						<p>{{comment.text|safe|linebreaks}}</p>
-					<br>
-				</td>
-
-				</tr>
-
-						 {% empty %}
-						 <div class="jumbotron">
-							 <h2>No comments</h2>
-						 </div>
-
+					 </div>
 					 {% endfor %}
-					 </table>
 					 </div>
 			 {% endif %}
 

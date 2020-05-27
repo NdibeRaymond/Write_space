@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.views.generic import CreateView
+import json
 
 
 # Create your views here.
@@ -118,11 +119,34 @@ def unfollow_view(request,**kwargs):
 ###########################################################
 ## allows a user to change their profile/background pic
 ###########################################################
-class changeProfilePicView(LoginRequiredMixin,generic.UpdateView):
-    login_url="/accounts/login/"
-    template_name="accounts/change_profile_pic_form.html"
-    form_class=forms.profilePicSelectForm
-    model=models.userProfile
+
+
+@login_required
+def change_profile_pic_view(request,**kwargs):
+
+    if request.method == 'POST':
+        user = models.userProfile.objects.get(user__exact=get_user_model().objects.get(username=kwargs.get("username")))
+        data = request.POST.copy()
+        profile_pic_url = data.get("profile_pic_url")
+        background_pic_url = data.get("background_pic_url")
+        print(profile_pic_url)
+        print(background_pic_url)
+
+        if (profile_pic_url != "" and profile_pic_url != None):
+            user.profile_pic = "https://res.cloudinary.com/raymondndibe/"+profile_pic_url
+
+        if (background_pic_url != "" and background_pic_url != None):
+            user.background_pic = "https://res.cloudinary.com/raymondndibe/"+background_pic_url
+
+        user.save()
+
+
+        return HttpResponseRedirect(reverse_lazy("accounts:user_profile",kwargs={"username":kwargs.get("username"),"pk":kwargs.get("pk")}))
+
+    else:
+
+        return render(request,'accounts/change_profile_pic_form.html')
+
 
 
 
@@ -217,27 +241,44 @@ def selectinterest(request):
 @login_required
 def selectprofilepicture(request):
     profilepictureselected = False
-    profile=request.user.userprofile.user
+    profile=request.user
 
     if request.method == 'POST':
-        #assigns the selected profile picture and the user instance to the profilePicSelectForm
-        profile_pic_select_form = forms.profilePicSelectForm(data=request.POST,instance=request.user)
-        #check if the selected picture is valid
-        if profile_pic_select_form.is_valid():
-            user_pic = profile_pic_select_form.save(commit=False)
+        # #assigns the selected profile picture and the user instance to the profilePicSelectForm
+        # profile_pic_select_form = forms.profilePicSelectForm(data=request.POST,instance=request.user)
+        # #check if the selected picture is valid
+        # if profile_pic_select_form.is_valid():
+        #     user_pic = profile_pic_select_form.save(commit=False)
+        #
+        #     if 'profile_pic' in request.FILES:
+        #         # If yes, then grab it from the POST form reply
+        #         user_pic.userprofile.profile_pic = request.FILES['profile_pic']
+        #
+        #     # Now save model
+        #     user_pic.userprofile.save()
+        user = models.userProfile.objects.get(user__exact=request.user)
+        data = request.POST.copy()
+        profile_pic_url = data.get("profile_pic_url")
+        background_pic_url = data.get("background_pic_url")
+        print(profile_pic_url)
+        print(background_pic_url)
 
-            if 'profile_pic' in request.FILES:
-                # If yes, then grab it from the POST form reply
-                user_pic.userprofile.profile_pic = request.FILES['profile_pic']
+        if (profile_pic_url != "" and profile_pic_url != None):
+            user.profile_pic = "https://res.cloudinary.com/raymondndibe/"+profile_pic_url
 
-            # Now save model
-            user_pic.userprofile.save()
+        if (background_pic_url != "" and background_pic_url != None):
+            user.background_pic = "https://res.cloudinary.com/raymondndibe/"+background_pic_url
 
-            profilepictureselected = True
+        user.save()
 
-            return HttpResponseRedirect(reverse_lazy("posts:post_list"))
-        else:
-            print(profile_pic_select_form.errors)
+        profilepictureselected = True
+
+        return HttpResponseRedirect(reverse_lazy("posts:post_list"))
+
+
+        #     return HttpResponseRedirect(reverse_lazy("posts:post_list"))
+        # else:
+        #     print(profile_pic_select_form.errors)
     else:
         if request.user.is_active:
 
@@ -250,5 +291,4 @@ def selectprofilepicture(request):
                 print(user_profile_query.profile_pic,"no profile picture selected yet")
         else:
             pass
-        profile_pic_select_form = forms.profilePicSelectForm()
-    return render(request,'accounts/choose_profile_pic_page.html',{'form':profile_pic_select_form,'profilepictureselected':profilepictureselected})
+    return render(request,'accounts/choose_profile_pic_page.html')

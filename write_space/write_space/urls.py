@@ -25,13 +25,16 @@ urlpatterns = [
     path("", views.LandingPage.as_view(),name="landing_page"),
     path("posts/",include("posts.urls",namespace="posts")),
     path("api/posts/",include("posts.api.urls",namespace="posts_api")),
-    path("ckeditor/",include("ckeditor_uploader.urls")),
     path("accounts/",include("accounts.urls",namespace="accounts")),
     path("api/token-auth/", obtain_jwt_token),
     path("api/refresh_token/",refresh_jwt_token),
     path("api/accounts/",include("accounts.api.urls",namespace="accounts_api")),
+    path("api/images/<int:pk>/<str:username>/<str:folder>/<str:public_id>/<str:type>/delete",
+    views.delete_image_async,name="delete_image_async"),
     path("accounts/",include("django.contrib.auth.urls")),
     path("about_me/",views.aboutView.as_view(),name="about_me"),
+    path('summernote/', include('django_summernote.urls')),
+]
 
-
-]+ static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
