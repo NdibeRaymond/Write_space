@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .feeds import LatestPostsFeed
 
 app_name = "posts"
 
@@ -23,5 +24,5 @@ urlpatterns = [
  path('<int:pk>/unpublish/',views.post_unpublish,name="post_unpublish"),
  path('join_cartegory/<int:pk>/',views.join_cartegory_view,name="join_cartegory"),
  path('leave_cartegory/<int:pk>/',views.leave_cartegory_view,name="leave_cartegory"),
-
+ path("feed/rss", LatestPostsFeed(), name="post_feed"),
 ]
