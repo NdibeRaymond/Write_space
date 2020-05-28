@@ -13,7 +13,6 @@ User = get_user_model()
 class Post(models.Model):
     author= models.ForeignKey(User,on_delete = models.CASCADE,related_name="authors")
     title = models.CharField(max_length = 255,unique = True)
-    # main_image = models.ImageField(upload_to = "images/post_images/",blank = True)
     main_image = models.TextField(blank=True,null=True)
     cartegory = TreeForeignKey('Cartegory',null=True,blank=True,on_delete = models.CASCADE,related_name="cartegories")
     clap = models.ManyToManyField(User,blank=True,related_name="claps")

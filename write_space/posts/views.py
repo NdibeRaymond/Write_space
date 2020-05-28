@@ -26,11 +26,14 @@ class postListView(generic.ListView):
     def get_context_data(self,**kwargs):
         most_popular = recEngine.most_popular(self.request)
         context = super(postListView,self).get_context_data(**kwargs)
-        context["most_popular_0"] = most_popular[0]
-        context["most_popular_1"] = most_popular[1]
-        context["most_popular_2"] = most_popular[2]
-        context["most_popular_3"] = most_popular[3]
-        context["most_popular_4"] = most_popular[4]
+        try:
+            context["most_popular_0"] = most_popular[0]
+            context["most_popular_1"] = most_popular[1]
+            context["most_popular_2"] = most_popular[2]
+            context["most_popular_3"] = most_popular[3]
+            context["most_popular_4"] = most_popular[4]
+        except:
+            pass
         return context
 
 
