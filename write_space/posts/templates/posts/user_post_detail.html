@@ -61,7 +61,7 @@
             {% endif %}
           </div>
 					{%if post.main_image%}
-					<img src="{{post.main_image.url}}" class="img-responsive" id="detail_img" alt="">
+					<img src="{{post.main_image}}" class="img-responsive" id="detail_img" alt="">
 					{%endif%}
 
           <br>
@@ -99,9 +99,9 @@
 
 					{%if rec_history%}
 				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" id="featured1">
-				 {%if rec_history.main_image%}
+				 {%if rec_history.main_image %}
 				 <div class=" banner_post_image" >
-				 <img src="{{rec_history.main_image.url}}" class="img-responsive" alt="" id="featured_img1">
+				 <img src="{{rec_history.main_image}}" class="img-responsive" alt="" id="featured_img1">
 			 </div>
 			 {%endif%}
 			 <div class=" banner_post_content">
@@ -124,7 +124,7 @@
 			 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" id="featured1">
 				 {%if rec_follow.main_image%}
 				 <div class=" banner_post_image" >
-				 <img src="{{rec_follow.main_image.url}}" class="img-responsive" alt="" id="featured_img1">
+				 <img src="{{rec_follow.main_image}}" class="img-responsive" alt="" id="featured_img1">
 			 </div>
 			 {%endif%}
 			 <div class=" banner_post_content">
@@ -147,7 +147,7 @@
 			 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post" id="featured1">
 				 {%if rec_interest.main_image%}
 				 <div class=" banner_post_image" >
-				 <img src="{{rec_interest.main_image.url}}" class="img-responsive" alt="" id="featured_img1">
+				 <img src="{{rec_interest.main_image}}" class="img-responsive" alt="" id="featured_img1">
 			 </div>
 			 {%endif%}
 			 <div class=" banner_post_content">
