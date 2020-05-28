@@ -58,6 +58,7 @@ img,video,embed {
 .flex_featured_post--0,.flex_featured_post--1,.flex_post {
   margin-left:0.6em;
   margin-right: 0.6em;
+  max-width: 500px;
 }
 
 .flex_featured_post--0 {
@@ -837,6 +838,9 @@ z-index: 100;
 }
 
 @media screen and (max-width: 500px) {
+  .flex_featured_post--0 {
+    width: 90%;
+  }
   .flex_featured_post--1  {
     width: 90%;
   }
@@ -856,5 +860,11 @@ z-index: 100;
 
   .social {
     margin-top: 2em;
+  }
+}
+
+@media screen and (max-width: 372px){
+  #nav {
+    display: flex;
   }
 }
