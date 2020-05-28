@@ -327,9 +327,6 @@ font-weight: bold;
 
 
 div.content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   background-color: white;
   max-width: 850px;
   width: 80%;
@@ -375,14 +372,6 @@ align-items: center;
 .post-detail-text {
   display: block;
 }
-
-#post_text p {
-  display: flex;
-  justify-content: center;
-}
-
-
-
 
 .comment-text{
 
