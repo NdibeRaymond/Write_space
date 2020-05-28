@@ -47,7 +47,6 @@
           type: "POST",
           success: function(data){
             console.log("transfer was succesful.......");
-            console.log(data.secure_url);
             let imgNode = document.createElement("img");
             var iframe = $('iframe');
             imgNode.setAttribute('src', data.secure_url);
@@ -69,7 +68,6 @@
 
       let mCallback = (mutations) =>{
         for(let mutation in mutations){
-          console.log(mutations[mutation]);
           if(mutations[mutation].removedNodes.length > 0
           && mutations[mutation].removedNodes[0].src !== null
           && mutations[mutation].removedNodes[0].src !== undefined){
@@ -205,7 +203,6 @@
        let isPostHeaderImage = elem.classList.contains("post_header_image");
        let isCartegoryImage = elem.classList.contains("cartegory_image");
 
-       console.log(isProfilePic,isBackgroundPic);
 
        if (isProfilePic || isBackgroundPic ){
 
@@ -244,14 +241,11 @@
        }
 
 
-       console.log(options);
-
        let widget = cloudinary.createUploadWidget(options,(error, result) => {
          console.log("callback was called ooo");
        if (result && result.event === "success") {
          if (isProfilePic || isBackgroundPic){
            let img_func = isProfilePic ? "profile_pic" : "background_pic";
-           console.log(img_func);
            let prev_thubmnail = document.querySelector(`.${img_func}_thumbnail`);
            let cloudinary_thumbnail = document.querySelectorAll(`.${img_func}_thumbnails .cloudinary-thumbnail`);
            let hidden_field = document.querySelectorAll(`.user_pic_form [name="${img_func}_url"]`);

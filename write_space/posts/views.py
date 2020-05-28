@@ -56,7 +56,6 @@ class PostDetailView(generic.DetailView):
         context["rec_history"] = recommendation_from_history
         context["rec_follow"] = recommendation_from_follow
         context["rec_interest"] = recommedation_from_user_interests
-        print(context["post"].main_image)
         return context
 
 
@@ -261,7 +260,6 @@ class cartegoryView(generic.ListView):
         except:
             cartegory_posts = []
         context = super(cartegoryView,self).get_context_data(**kwargs)
-        print(self.current)
         context["current_cartegory"] = self.current
         context["current_cartegory_posts"] = cartegory_posts
 
@@ -308,7 +306,6 @@ def leave_cartegory_view(request,**kwargs):
 @login_required
 def add_comment_to_post(request,pk):
     if request.method =="POST":
-        print(request.POST)
         post=get_object_or_404(models.Post,pk=pk)
         form=CommentForm(request.POST)
         if form.is_valid():
