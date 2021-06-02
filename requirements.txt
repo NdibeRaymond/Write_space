@@ -56,6 +56,6 @@ six==1.12.0
 sqlparse==0.3.0
 text-unidecode==1.2
 Unidecode==1.0.23
-urllib3==1.24.1
+urllib3==1.26.5
 validators==0.13.0
 wincertstore==0.2
